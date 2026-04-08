@@ -1,4 +1,4 @@
-# liao-skill for OpenCode
+# aolun for OpenCode
 
 按下面步骤接入：
 
