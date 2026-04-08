@@ -1,0 +1,13 @@
+{
+  "name": "liao-skill",
+  "version": "1.0.0",
+  "description": "以李敖思维武装 AI Agent 的工程批判方法论 Skills 合集——拆底朝天，立而破之",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "validate": "bash tests/validate.sh",
+    "validate:win": "powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File tests/validate.ps1",
+    "test": "bash tests/validate.sh",
+    "test:win": "powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File tests/validate.ps1"
+  }
+}
