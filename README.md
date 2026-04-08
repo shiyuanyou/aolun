@@ -124,8 +124,12 @@ claude --plugin-dir .
 
 ### OpenCode
 ```bash
-git clone https://github.com/YOUR_USERNAME/aolun
-# 在 session 开始时加载 skills/arming-liao/SKILL.md 作为入口
+# 在 opencode.json 里添加插件（全局或项目级）
+{
+  "plugin": ["aolun@git+https://github.com/shiyuanyou/aolun.git"]
+}
+
+# 重启 OpenCode（会自动注册 skills；新任务开始时手动 load arming-liao）
 ```
 
 ### Cursor / Codex
