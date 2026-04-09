@@ -117,7 +117,7 @@
 
 ### Claude Code
 ```bash
-git clone https://github.com/YOUR_USERNAME/aolun
+git clone https://github.com/shiyuanyou/aolun
 cd aolun
 claude --plugin-dir .
 ```
