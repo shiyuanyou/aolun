@@ -81,9 +81,9 @@ echo "Checking hooks are executable..."
 
 if [ $ERRORS -eq 0 ]; then
   echo ""
-  echo "All checks passed. liao-skill is ready."
+  echo "All checks passed. aolun is ready."
 else
   echo ""
-  echo "Found $ERRORS error(s). Please fix them before using liao-skill." >&2
+  echo "Found $ERRORS error(s). Please fix them before using aolun." >&2
   exit 1
 fi

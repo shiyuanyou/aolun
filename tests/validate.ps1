@@ -64,9 +64,9 @@ Get-ChildItem -Path (Join-Path $repoRoot "commands") -Filter "*.md" | ForEach-Ob
 
 if ($script:errors -eq 0) {
     Write-Host ""
-    Write-Host "All checks passed. liao-skill is ready."
+    Write-Host "All checks passed. aolun is ready."
 } else {
     Write-Host ""
-    Write-Error "Found $($script:errors) error(s). Please fix them before using liao-skill."
+    Write-Error "Found $($script:errors) error(s). Please fix them before using aolun."
     exit 1
 }
