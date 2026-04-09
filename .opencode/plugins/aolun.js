@@ -2,7 +2,7 @@
  * aolun plugin for OpenCode.ai
  *
  * Registers aolun skills directory for OpenCode discovery.
- * Injects arming-liao bootstrap into the first user message of each session.
+ * Injects aolun-arming bootstrap into the first user message of each session.
  */
 
 import path from 'path';
@@ -37,7 +37,7 @@ export const AolunPlugin = async ({ client, directory }) => {
   const configDir = envConfigDir || path.join(homeDir, '.config/opencode');
 
   const getBootstrapContent = () => {
-    const skillPath = path.join(skillsDir, 'arming-liao', 'SKILL.md');
+    const skillPath = path.join(skillsDir, 'aolun-arming', 'SKILL.md');
     if (!fs.existsSync(skillPath)) return null;
     const fullContent = fs.readFileSync(skillPath, 'utf8');
     const { content } = extractAndStripFrontmatter(fullContent);

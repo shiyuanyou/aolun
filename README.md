@@ -29,22 +29,22 @@
 
 ```
 【解剖层】把论断拆开
-  dissector-concept     概念层：这个词你说的是什么意思？
-  dissector-mechanism   机制层：它声称通过什么原理实现？
-  dissector-constraint  约束层：在什么条件下才成立？
-  dissector-interest    利益层：谁在推它，他们得什么好处？
+  aolun-dissect-concept           概念层：这个词你说的是什么意思？  ⚡入口
+  aolun-inter-dissect-mechanism   机制层：它声称通过什么原理实现？  内部
+  aolun-inter-dissect-constraint  约束层：在什么条件下才成立？  内部
+  aolun-inter-dissect-interest    利益层：谁在推它，他们得什么好处？  内部
 
 【扫描层】找弱点
-  scanner-logic         逻辑弱点：论证结构有没有问题？
-  scanner-engineering   工程弱点：在实际工程中能不能成立？
-  scanner-history       历史弱点：历史上有没有同类失败案例？
-  scanner-motive        动机弱点：信息是怎么被选择性呈现的？
+  aolun-scan-logic         逻辑弱点：论证结构有没有问题？  ⚡入口
+  aolun-scan-engineering   工程弱点：在实际工程中能不能成立？  ⚡入口
+  aolun-scan-history       历史弱点：历史上有没有同类失败案例？  ⚡入口
+  aolun-scan-motive        动机弱点：信息是怎么被选择性呈现的？  ⚡入口
 
 【重建层】找更好方向
-  other-mountains       跨领域解法引擎：其他领域有没有解决了类似问题的方案？
+  aolun-other-mountains  跨领域解法引擎：其他领域有没有解决了类似问题的方案？  ⚡入口
 
 【输出层】写出来
-  attack-writer         辩证诊断 → 三件武器（引证 / 解构 / 反讽）→ 实践验证 → 战斗文本
+  aolun-attack  辩证诊断 → 三件武器（引证 / 解构 / 反讽）→ 实践验证 → 战斗文本  ⚡入口
 ```
 
 ---
@@ -97,18 +97,18 @@
 ## 完整命令列表
 
 ```
-/dissect-concept      概念层解剖
-/dissect-mechanism    机制层解剖
-/dissect-constraint   约束层解剖
-/dissect-interest     利益层解剖
-/scan-logic           逻辑弱点扫描
-/scan-engineering     工程弱点扫描
-/scan-history         历史弱点扫描
-/scan-motive          动机弱点扫描
-/other-mountains      跨领域解法引擎
-/attack               战斗文本生成
-/quick-shot           快速狙击（Workflow 1）
-/full-teardown        底朝天全拆（Workflow 3）
+/aolun-dissect-concept      概念层解剖（⚡入口）
+/aolun-inter-dissect-mechanism    机制层解剖（内部）
+/aolun-inter-dissect-constraint   约束层解剖（内部）
+/aolun-inter-dissect-interest    利益层解剖（内部）
+/aolun-scan-logic           逻辑弱点扫描（⚡入口）
+/aolun-scan-engineering     工程弱点扫描（⚡入口）
+/aolun-scan-history         历史弱点扫描（⚡入口）
+/aolun-scan-motive          动机弱点扫描（⚡入口）
+/aolun-other-mountains      跨领域解法引擎（⚡入口）
+/aolun-attack               战斗文本生成（⚡入口）
+/aolun-quick-shot            快速狙击（Workflow 1）
+/aolun-full-teardown        底朝天全拆（Workflow 3）
 ```
 
 ---
@@ -129,7 +129,7 @@ claude --plugin-dir .
   "plugin": ["aolun@git+https://github.com/shiyuanyou/aolun.git"]
 }
 
-# 重启 OpenCode（会自动注册 skills；新任务开始时手动 load arming-liao）
+# 重启 OpenCode（会自动注册 skills；新任务开始时手动 load aolun-arming）
 ```
 
 ### Cursor / Codex

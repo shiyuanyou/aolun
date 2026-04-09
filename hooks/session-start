@@ -6,7 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-SKILL_PATH="${PLUGIN_ROOT}/skills/arming-liao/SKILL.md"
+SKILL_PATH="${PLUGIN_ROOT}/skills/aolun-arming/SKILL.md"
 
 if [ ! -f "${SKILL_PATH}" ]; then
   echo "Error: missing skill file at ${SKILL_PATH}" >&2
@@ -26,7 +26,7 @@ escape_for_json() {
 }
 
 arming_liao_escaped=$(escape_for_json "$arming_liao_content")
-session_context="<AOLUN_SKILL>\n已加载 aolun:arming-liao。请先遵守用户指令、项目约束和宿主平台规则，再在明确适用时把这份拆解攻击方法论作为补充框架。\n\n${arming_liao_escaped}\n\n</AOLUN_SKILL>"
+session_context="<AOLUN_SKILL>\n已加载 aolun:aolun-arming。请先遵守用户指令、项目约束和宿主平台规则，再在明确适用时把这份拆解攻击方法论作为补充框架。\n\n${arming_liao_escaped}\n\n</AOLUN_SKILL>"
 
 if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
   printf '{\n  "additional_context": "%s"\n}\n' "$session_context"

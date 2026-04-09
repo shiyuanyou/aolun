@@ -8,9 +8,9 @@ A multi-platform skill plugin that equips AI agents with a systematic critical-t
 
 | Path | Purpose |
 |------|---------|
-| `skills/*/SKILL.md` | Core skill definitions (12 skills). Each has YAML frontmatter (`name`, `description`) followed by markdown body. |
+| `skills/*/SKILL.md` | Core skill definitions (12 skills). Each has YAML frontmatter (`name`, `description`) followed by markdown body. Names use `aolun-` prefix for entry skills and `aolun-inter-` prefix for internal pipeline skills. |
 | `commands/*.md` | Slash-command definitions for Claude Code / Cursor. Also have frontmatter. |
-| `hooks/` | Session-start hook that injects `arming-liao` bootstrap into new conversations. |
+| `hooks/` | Session-start hook that injects `aolun-arming` bootstrap into new conversations. |
 | `.opencode/plugins/aolun.js` | OpenCode plugin: registers skills path and injects bootstrap into first user message. |
 | `.claude-plugin/plugin.json` | Claude Code plugin manifest. |
 | `.cursor-plugin/plugin.json` | Cursor plugin manifest. |
@@ -28,11 +28,11 @@ A multi-platform skill plugin that equips AI agents with a systematic critical-t
 Skills are not independent. The required invocation order is:
 
 ```
-arming-liao (router, session bootstrap)
-  → dissector-concept → dissector-mechanism → dissector-constraint → dissector-interest
-  → scanner-logic / scanner-engineering / scanner-history / scanner-motive
-  → other-mountains
-  → attack-writer
+aolun-arming (router, session bootstrap) ⚡入口
+  → aolun-dissect-concept → aolun-inter-dissect-mechanism → aolun-inter-dissect-constraint → aolun-inter-dissect-interest
+  → aolun-scan-logic / aolun-scan-engineering / aolun-scan-history / aolun-scan-motive
+  → aolun-other-mountains
+  → aolun-attack
 ```
 
 Dissectors must run in order. Scanners can run in parallel after dissection. Attack-writer runs last.

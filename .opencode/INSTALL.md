@@ -40,12 +40,12 @@ Use OpenCode's native `skill` tool:
 
 ```
 use skill tool to list skills
-use skill tool to load arming-liao
-use skill tool to load attack-writer
+use skill tool to load aolun-arming
+use skill tool to load aolun-attack
 ```
 
 Note: For maximum compatibility, the current plugin does not inject bootstrap text automatically.
-Load `arming-liao` manually at the beginning of a new task/session.
+Load `aolun-arming` manually at the beginning of a new task/session.
 
 ## Updating
 

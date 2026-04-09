@@ -30,18 +30,18 @@ for f in \
   hooks/session-start \
   hooks/session-start.ps1 \
   hooks/run-hook.cmd \
-  skills/arming-liao/SKILL.md \
-  skills/dissector-concept/SKILL.md \
-  skills/dissector-mechanism/SKILL.md \
-  skills/dissector-constraint/SKILL.md \
-  skills/dissector-interest/SKILL.md \
-  skills/scanner-logic/SKILL.md \
-  skills/scanner-engineering/SKILL.md \
-  skills/scanner-history/SKILL.md \
-  skills/scanner-motive/SKILL.md \
-  skills/other-mountains/SKILL.md \
-  skills/attack-writer/SKILL.md \
-  skills/workflows/SKILL.md \
+  skills/aolun-arming/SKILL.md \
+  skills/aolun-dissect-concept/SKILL.md \
+  skills/aolun-inter-dissect-mechanism/SKILL.md \
+  skills/aolun-inter-dissect-constraint/SKILL.md \
+  skills/aolun-inter-dissect-interest/SKILL.md \
+  skills/aolun-scan-logic/SKILL.md \
+  skills/aolun-scan-engineering/SKILL.md \
+  skills/aolun-scan-history/SKILL.md \
+  skills/aolun-scan-motive/SKILL.md \
+  skills/aolun-other-mountains/SKILL.md \
+  skills/aolun-attack/SKILL.md \
+  skills/aolun-workflows/SKILL.md \
   .codex/INSTALL.md \
   .opencode/INSTALL.md
 do
