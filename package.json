@@ -1,7 +1,8 @@
 {
   "name": "aolun",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "武装 AI 工程批判大脑的 Skills 合集——四层解剖 × 四维扫描 × 跨域重建 × 辩证驱动的战斗文本生成",
+  "main": ".opencode/plugins/aolun.js",
   "license": "MIT",
   "type": "module",
   "scripts": {
