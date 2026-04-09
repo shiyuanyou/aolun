@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SessionStart hook for liao-skill
+# SessionStart hook for aolun
 # 在每次会话开始时注入"武装李敖"入口 skill
 
 set -euo pipefail
@@ -26,7 +26,7 @@ escape_for_json() {
 }
 
 arming_liao_escaped=$(escape_for_json "$arming_liao_content")
-session_context="<LIAO_SKILL>\n已加载 liao:arming-liao。请先遵守用户指令、项目约束和宿主平台规则，再在明确适用时把这份拆解攻击方法论作为补充框架。\n\n${arming_liao_escaped}\n\n</LIAO_SKILL>"
+session_context="<AOLUN_SKILL>\n已加载 aolun:arming-liao。请先遵守用户指令、项目约束和宿主平台规则，再在明确适用时把这份拆解攻击方法论作为补充框架。\n\n${arming_liao_escaped}\n\n</AOLUN_SKILL>"
 
 if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
   printf '{\n  "additional_context": "%s"\n}\n' "$session_context"
