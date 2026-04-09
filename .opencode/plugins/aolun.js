@@ -48,10 +48,6 @@ const createPlugin = async () => {
   };
 };
 
-// Prefer name that matches filename-based plugin loading.
 export const AolunPlugin = createPlugin;
-
-// Compatibility alias with superpowers-style naming.
-export const SuperpowersPlugin = createPlugin;
 
 export default createPlugin;
