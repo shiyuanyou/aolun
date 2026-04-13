@@ -66,10 +66,7 @@ aolun-arming（路由）
     → aolun-inter-dissect-mechanism   机制层解剖  内部
     → aolun-inter-dissect-constraint  约束层解剖  内部
     → aolun-inter-dissect-interest    利益层解剖  内部
-    → aolun-scan-logic       逻辑弱点扫描  ⚡入口
-    → aolun-scan-engineering 工程弱点扫描  ⚡入口
-    → aolun-scan-history     历史弱点扫描  ⚡入口
-    → aolun-scan-motive      动机弱点扫描  ⚡入口
+    → aolun-scan-orchestrator  并行扫描编排器（内部并行 dispatch 四个扫描器）⚡入口
     → aolun-other-mountains  跨领域解法引擎  ⚡入口
     → aolun-attack           攻击文生成器  ⚡入口
 ```
@@ -79,7 +76,7 @@ aolun-arming（路由）
 | 你的目标 | 最少需要的路径 |
 |---------|------------|
 | 快速摸底一篇帖子 | aolun-dissect-concept + aolun-scan-logic |
-| 写一篇有力的技术评论 | 四层解剖 + 全部扫描器 + aolun-attack |
+| 写一篇有力的技术评论 | 四层解剖 + aolun-scan-orchestrator + aolun-attack |
 | 找到真正的跨领域解法 | 四层解剖 + aolun-other-mountains |
 | 完整拆底朝天 | 全路径 |
 
@@ -119,10 +116,11 @@ aolun-arming（路由）
 |-----------|------|
 | `aolun-arming` | 路由器，会话启动 |
 | `aolun-dissect-concept` | 概念层解剖 |
-| `aolun-scan-logic` | 逻辑弱点扫描 |
-| `aolun-scan-engineering` | 工程弱点扫描 |
-| `aolun-scan-history` | 历史弱点扫描 |
-| `aolun-scan-motive` | 动机弱点扫描 |
+| `aolun-scan-orchestrator` | 并行扫描编排器（内部 dispatch 四个扫描器） |
+| `aolun-scan-logic` | 逻辑弱点扫描（可单独调用，也可由 orchestrator 调用） |
+| `aolun-scan-engineering` | 工程弱点扫描（可单独调用，也可由 orchestrator 调用） |
+| `aolun-scan-history` | 历史弱点扫描（可单独调用，也可由 orchestrator 调用） |
+| `aolun-scan-motive` | 动机弱点扫描（可单独调用，也可由 orchestrator 调用） |
 | `aolun-other-mountains` | 跨领域解法引擎 |
 | `aolun-attack` | 攻击文生成器 |
 | `aolun-workflows` | 工作流编排 |

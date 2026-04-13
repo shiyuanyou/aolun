@@ -63,8 +63,8 @@ aolun-dissect-concept → aolun-scan-logic → aolun-attack（快速评论模式
 aolun-dissect-concept → aolun-inter-dissect-mechanism → aolun-inter-dissect-constraint → aolun-inter-dissect-interest
      概念          →      机制           →       约束          →      利益
          ↓
-aolun-scan-logic + aolun-scan-engineering + aolun-scan-history + aolun-scan-motive（并行）
-   逻辑扫描  +    工程扫描         +   历史扫描     +   动机扫描
+aolun-scan-orchestrator（单次消息并行 dispatch 四个扫描器 subagent）
+   → 返回扫描综合报告（约400字，替代原四份全文报告）
          ↓
    aolun-other-mountains（可选，如果有值得引入的跨领域解法）
          ↓
@@ -83,16 +83,18 @@ aolun-scan-logic + aolun-scan-engineering + aolun-scan-history + aolun-scan-moti
 
 **扫描层 → 他山之石：**
 ```
-工程弱点的结构本质：[抽象描述，去除领域专用词汇]
-最需要解决的核心问题：[一句话]
+（从扫描综合报告中提取）
+工程维度最致命：[来自综合报告的工程维度最致命一击]
+最需要解决的核心问题：[综合四个维度后的一句话定性]
 ```
 
 **全部结论 → 攻击文：**
 ```
-弱点清单（按攻击力排序）：
-  1. [最致命的弱点]：[证据]
-  2. [次致命弱点]：[证据]
-  3. ...
+（直接使用 aolun-scan-orchestrator 输出的扫描综合报告）
+
+扫描综合报告包含：
+  - 四个维度各自的最致命一击
+  - 全弱点清单（攻击力排序，去重合并，最多10条）
 跨领域解法（如有）：[来源 + 机制 + 迁移路径]
 定性结论：[这个东西的真实定位]
 ```
@@ -107,7 +109,7 @@ aolun-scan-logic + aolun-scan-engineering + aolun-scan-history + aolun-scan-moti
 
 ```
 Phase 1：全层解剖（四个解剖器全部执行）
-Phase 2：全维扫描（四个扫描器全部执行）
+Phase 2：全维扫描（调用 aolun-scan-orchestrator，内部并行执行四个扫描器）
 Phase 3：他山之石（寻找所有可用的跨领域解法）
 Phase 4：综合攻击文（深度拆解结构）
 ```
