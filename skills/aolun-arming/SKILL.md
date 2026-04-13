@@ -79,6 +79,9 @@ aolun-arming（路由）
 | 写一篇有力的技术评论 | 四层解剖 + aolun-scan-orchestrator + aolun-attack |
 | 找到真正的跨领域解法 | 四层解剖 + aolun-other-mountains |
 | 完整拆底朝天 | 全路径 |
+| 面对不熟悉领域或复杂场景，需要先建立认识基础 | aolun-ground（前置调研） |
+| 目标是正向建设方案，不是批判 | aolun-ground → aolun-build |
+| 需要先定位当前所处阶段 | aolun-ground（模块B即可） |
 
 ---
 
@@ -124,6 +127,8 @@ aolun-arming（路由）
 | `aolun-other-mountains` | 跨领域解法引擎 |
 | `aolun-attack` | 攻击文生成器 |
 | `aolun-workflows` | 工作流编排 |
+| `aolun-ground` | 前置调研器：感性认识建立 + 阶段判断 |
+| `aolun-build` | 正向实践规划器：群众路线 + 三阶段匹配 |
 
 内部 skill（由上游 skill 调度回传）使用 `aolun-inter-` 前缀：
 
