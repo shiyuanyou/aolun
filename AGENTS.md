@@ -30,12 +30,12 @@ Skills are not independent. The required invocation order is:
 ```
 aolun-arming (router, session bootstrap) ⚡入口
   → aolun-dissect-concept → aolun-inter-dissect-mechanism → aolun-inter-dissect-constraint → aolun-inter-dissect-interest
-  → aolun-scan-logic / aolun-scan-engineering / aolun-scan-history / aolun-scan-motive
+  → aolun-scan-orchestrator (parallel: scan-logic / scan-engineering / scan-history / scan-motive)
   → aolun-other-mountains
   → aolun-attack
 ```
 
-Dissectors must run in order. Scanners can run in parallel after dissection. Attack-writer runs last.
+Dissectors must run in order. Scanners run in parallel via `aolun-scan-orchestrator` after dissection (individual scan-* skills can still be called directly). Attack-writer runs last.
 
 ## Running validation
 
