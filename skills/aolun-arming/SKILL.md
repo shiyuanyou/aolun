@@ -75,13 +75,14 @@ aolun-arming（路由）
 
 | 你的目标 | 最少需要的路径 |
 |---------|------------|
+| 面对不熟悉领域，需要先建立认识基础（前置） | aolun-ground，再进入下方任一路径 |
+| 目标是正向建设方案，不是批判 | aolun-ground → aolun-build |
 | 快速摸底一篇帖子 | aolun-dissect-concept + aolun-scan-logic |
 | 写一篇有力的技术评论 | 四层解剖 + aolun-scan-orchestrator + aolun-attack |
 | 找到真正的跨领域解法 | 四层解剖 + aolun-other-mountains |
 | 完整拆底朝天 | 全路径 |
-| 面对不熟悉领域或复杂场景，需要先建立认识基础 | aolun-ground（前置调研） |
-| 目标是正向建设方案，不是批判 | aolun-ground → aolun-build |
-| 需要先定位当前所处阶段 | aolun-ground（模块B即可） |
+
+具体步骤、数据传递格式和各工作流的终止条件见 `aolun-workflows`。
 
 ---
 
@@ -111,35 +112,10 @@ aolun-arming（路由）
 
 ---
 
-## Skill 命名规范
-
-入口 skill（⚡可直接调用）使用 `aolun-` 前缀：
-
-| 入口 Skill | 用途 |
-|-----------|------|
-| `aolun-arming` | 路由器，会话启动 |
-| `aolun-dissect-concept` | 概念层解剖 |
-| `aolun-scan-orchestrator` | 并行扫描编排器（内部 dispatch 四个扫描器） |
-| `aolun-scan-logic` | 逻辑弱点扫描（可单独调用，也可由 orchestrator 调用） |
-| `aolun-scan-engineering` | 工程弱点扫描（可单独调用，也可由 orchestrator 调用） |
-| `aolun-scan-history` | 历史弱点扫描（可单独调用，也可由 orchestrator 调用） |
-| `aolun-scan-motive` | 动机弱点扫描（可单独调用，也可由 orchestrator 调用） |
-| `aolun-other-mountains` | 跨领域解法引擎 |
-| `aolun-attack` | 攻击文生成器 |
-| `aolun-workflows` | 工作流编排 |
-| `aolun-ground` | 前置调研器：感性认识建立 + 阶段判断 |
-| `aolun-build` | 正向实践规划器：群众路线 + 三阶段匹配 |
-
-内部 skill（由上游 skill 调度回传）使用 `aolun-inter-` 前缀：
-
-| 内部 Skill | 用途 |
-|-----------|------|
-| `aolun-inter-dissect-mechanism` | 机制层解剖 |
-| `aolun-inter-dissect-constraint` | 约束层解剖 |
-| `aolun-inter-dissect-interest` | 利益层解剖 |
-
-## 如何使用各武器
+## 如何使用各 skill
 
 - **在 Claude Code 中：** 使用 `Skill` 工具调用对应 skill
 - **在支持命令的宿主中：** 使用 `commands/` 目录中的手动命令
 - **在其他平台：** 直接读取对应 `skills/*/SKILL.md`
+
+各 skill 的完整列表和用途说明见 `aolun-workflows`。

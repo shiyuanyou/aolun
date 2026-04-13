@@ -171,14 +171,5 @@ description: |
 
 ## 摘要输出规范（供 aolun-scan-orchestrator 使用）
 
-当作为 subagent 被 orchestrator 调用时，在完整报告末尾追加以下格式块：
-
-```
-【致攻击层的摘要】（来自 scan-engineering）
-最致命的一击：[一句话，真实生产环境下最可能导致方案失败的单点问题]
-弱点清单（最多5条，按攻击力排序）：
-  1. [弱点类型] — [原文证据，用引号] — 攻击力：[高/中/低]
-  2. [弱点类型] — [原文证据，用引号] — 攻击力：[高/中/低]
-  3. ...
-```
-```
+当作为 subagent 被 orchestrator 调用时，在完整报告末尾追加摘要块。
+摘要格式定义见 `aolun-scan-orchestrator` Step 2 中 Task 2 的要求。
