@@ -1,8 +1,8 @@
 ---
 name: aolun-workflows
 description: |
-  ⚡入口 skill。当你需要对一篇帖子执行完整的拆解攻击流程时调用；提供三条标准化工作流，定义 skill 的调用顺序、步骤间的数据传递和终止条件。
-  English: Entry skill. Trigger when executing a full dissect-and-attack pipeline on a target post. Provides three standardized workflows with defined skill sequencing, data handoff, and termination conditions.
+  ⚡入口 skill。当你需要对一篇帖子执行完整的拆解攻击流程时调用；提供四条标准化工作流，定义 skill 的调用顺序、步骤间的数据传递和终止条件。
+  English: Entry skill. Trigger when executing a full dissect-and-attack pipeline on a target post. Provides four standardized workflows with defined skill sequencing, data handoff, and termination conditions.
 ---
 
 # 工作流编排层

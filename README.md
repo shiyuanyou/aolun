@@ -28,20 +28,25 @@
 两者结合，形成一套四层 × 四维 × 跨域的系统：
 
 ```
+【前置层】先建立认识基础（面对不熟悉的领域时）
+  aolun-ground  感性认识建立 + 阶段判断（探索期/扩张期/存量期）  ⚡入口
+
 【解剖层】把论断拆开
   aolun-dissect-concept           概念层：这个词你说的是什么意思？  ⚡入口
   aolun-inter-dissect-mechanism   机制层：它声称通过什么原理实现？  内部
   aolun-inter-dissect-constraint  约束层：在什么条件下才成立？  内部
   aolun-inter-dissect-interest    利益层：谁在推它，他们得什么好处？  内部
 
-【扫描层】找弱点
-  aolun-scan-logic         逻辑弱点：论证结构有没有问题？  ⚡入口
-  aolun-scan-engineering   工程弱点：在实际工程中能不能成立？  ⚡入口
-  aolun-scan-history       历史弱点：历史上有没有同类失败案例？  ⚡入口
-  aolun-scan-motive        动机弱点：信息是怎么被选择性呈现的？  ⚡入口
+【扫描层】找弱点（并行）
+  aolun-scan-orchestrator  并行 dispatch 四个扫描器  ⚡入口
+  aolun-scan-logic         逻辑弱点：论证结构有没有问题？
+  aolun-scan-engineering   工程弱点：在实际工程中能不能成立？
+  aolun-scan-history       历史弱点：历史上有没有同类失败案例？
+  aolun-scan-motive        动机弱点：信息是怎么被选择性呈现的？
 
 【重建层】找更好方向
   aolun-other-mountains  跨领域解法引擎：其他领域有没有解决了类似问题的方案？  ⚡入口
+  aolun-build            正向实践规划器：群众路线 + 持久战阶段匹配  ⚡入口
 
 【输出层】写出来
   aolun-attack  辩证诊断 → 三件武器（引证 / 解构 / 反讽）→ 实践验证 → 战斗文本  ⚡入口
@@ -82,7 +87,7 @@
 
 ---
 
-## 三条工作流
+## 四条工作流
 
 根据目标选择：
 
@@ -91,12 +96,14 @@
 | 快速狙击 | 推文/短帖，快速回应 | 5–10 分钟 | `/quick-shot` |
 | 标准拆解 | 完整技术文章或方案 | 30–60 分钟 | 手动逐层调用 |
 | 底朝天全拆 | 重要行业论断或主流方法论 | 1–3 小时 | `/full-teardown` |
+| 正向建设 | 规划新方案/产品路径/团队实践 | 30–90 分钟 | `aolun-ground → aolun-build` |
 
 ---
 
 ## 完整命令列表
 
 ```
+/aolun-ground               前置调研：感性认识建立 + 阶段判断（⚡入口）
 /aolun-dissect-concept      概念层解剖（⚡入口）
 /aolun-inter-dissect-mechanism    机制层解剖（内部）
 /aolun-inter-dissect-constraint   约束层解剖（内部）
@@ -106,6 +113,7 @@
 /aolun-scan-history         历史弱点扫描（⚡入口）
 /aolun-scan-motive          动机弱点扫描（⚡入口）
 /aolun-other-mountains      跨领域解法引擎（⚡入口）
+/aolun-build                正向实践规划器（⚡入口）
 /aolun-attack               战斗文本生成（⚡入口）
 /aolun-quick-shot            快速狙击（Workflow 1）
 /aolun-full-teardown        底朝天全拆（Workflow 3）
@@ -142,6 +150,8 @@ claude --plugin-dir .
 - 李敖的批判方法论（概念 → 机制 → 约束 → 利益）
 - 毛泽东《矛盾论》（主要矛盾识别 + 矛盾特殊性分析）
 - 毛泽东《实践论》（实践验证 + 认识螺旋）
+- 毛泽东《论持久战》（阶段判断 + 阶段匹配战略）
+- 毛泽东群众路线（调查先于方案；从群众中来，到群众中去）
 
 这不是思想背书，是方法论工具箱。取其方法，不论其政治。
 

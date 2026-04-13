@@ -8,7 +8,7 @@ A multi-platform skill plugin that equips AI agents with a systematic critical-t
 
 | Path | Purpose |
 |------|---------|
-| `skills/*/SKILL.md` | Core skill definitions (12 skills). Each has YAML frontmatter (`name`, `description`) followed by markdown body. Names use `aolun-` prefix for entry skills and `aolun-inter-` prefix for internal pipeline skills. |
+| `skills/*/SKILL.md` | Core skill definitions (15 skills). Each has YAML frontmatter (`name`, `description`) followed by markdown body. Names use `aolun-` prefix for entry skills and `aolun-inter-` prefix for internal pipeline skills. |
 | `commands/*.md` | Slash-command definitions for Claude Code / Cursor. Also have frontmatter. |
 | `hooks/` | Session-start hook that injects `aolun-arming` bootstrap into new conversations. |
 | `.opencode/plugins/aolun.js` | OpenCode plugin: registers skills path and injects bootstrap into first user message. |
@@ -33,9 +33,17 @@ aolun-arming (router, session bootstrap) ⚡入口
   → aolun-scan-orchestrator (parallel: scan-logic / scan-engineering / scan-history / scan-motive)
   → aolun-other-mountains
   → aolun-attack
+
+aolun-ground (前置调研，面对不熟悉领域时使用) ⚡入口
+  → aolun-dissect-concept  (携带阶段判断报告，进入拆解路径)
+  → aolun-build            (携带完整 ground 报告，进入正向建设路径)
+
+aolun-build (正向实践规划器) ⚡入口
+  → (可选) aolun-other-mountains  (MEP 设计需要跨领域解法时)
+  → (可选) aolun-attack            (发现现有主流做法存在严重误导时清场)
 ```
 
-Dissectors must run in order. Scanners run in parallel via `aolun-scan-orchestrator` after dissection (individual scan-* skills can still be called directly). Attack-writer runs last.
+Dissectors must run in order. Scanners run in parallel via `aolun-scan-orchestrator` after dissection (individual scan-* skills can still be called directly). Attack-writer runs last. For constructive planning, use `aolun-ground → aolun-build` instead of the dissect-scan-attack path.
 
 ## Running validation
 

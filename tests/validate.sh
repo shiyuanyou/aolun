@@ -42,6 +42,8 @@ for f in \
   skills/aolun-other-mountains/SKILL.md \
   skills/aolun-attack/SKILL.md \
   skills/aolun-workflows/SKILL.md \
+  skills/aolun-ground/SKILL.md \
+  skills/aolun-build/SKILL.md \
   .codex/INSTALL.md \
   .opencode/INSTALL.md
 do
