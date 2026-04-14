@@ -56,6 +56,21 @@ description: |
 
 ---
 
+## 前置：输入长度判断
+
+收到需要拆解的文本后，**第一步**先判断长度：
+
+| 条件 | 路径 |
+|------|------|
+| 输入文本字符数 < 1500 | 继续走下方调度规则（内存执行模式） |
+| 输入文本字符数 ≥ 1500 | 移交给 `aolun-fileflow`（文件持久化模式） |
+
+> 判断方法：目测或计数均可。中文500字约等于1500字符，英文250词约等于1500字符，作为参考基准。
+
+长文本强制走 fileflow 的原因：长文本分析产生的中间态报告量大，极易触发 compact，导致上下文丢失。文件落盘是唯一可靠的防御。
+
+---
+
 ## 调度规则
 
 拿到一篇需要拆解攻击的帖子，标准路径：
@@ -117,5 +132,22 @@ aolun-arming（路由）
 - **在 Claude Code 中：** 使用 `Skill` 工具调用对应 skill
 - **在支持命令的宿主中：** 使用 `commands/` 目录中的手动命令
 - **在其他平台：** 直接读取对应 `skills/*/SKILL.md`
+
+
+| 入口 Skill | 用途 |
+|-----------|------|
+| `aolun-arming` | 路由器，会话启动，长度判断 |
+| `aolun-fileflow` | 文件持久化分析路由器（长文本 ≥1500字符） |
+| `aolun-dissect-concept` | 概念层解剖 |
+| `aolun-scan-orchestrator` | 并行扫描编排器 |
+| `aolun-scan-logic` | 逻辑弱点扫描 |
+| `aolun-scan-engineering` | 工程弱点扫描 |
+| `aolun-scan-history` | 历史弱点扫描 |
+| `aolun-scan-motive` | 动机弱点扫描 |
+| `aolun-other-mountains` | 跨领域解法引擎 |
+| `aolun-attack` | 攻击文生成器 |
+| `aolun-workflows` | 工作流编排 |
+| `aolun-ground` | 前置调研 |
+| `aolun-build` | 正向实践规划器 |
 
 各 skill 的完整列表和用途说明见 `aolun-workflows`。

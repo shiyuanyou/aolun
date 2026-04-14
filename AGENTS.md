@@ -8,7 +8,8 @@ A multi-platform skill plugin that equips AI agents with a systematic critical-t
 
 | Path | Purpose |
 |------|---------|
-| `skills/*/SKILL.md` | Core skill definitions (15 skills). Each has YAML frontmatter (`name`, `description`) followed by markdown body. Names use `aolun-` prefix for entry skills and `aolun-inter-` prefix for internal pipeline skills. |
+| `skills/*/SKILL.md` | Core skill definitions (16 skills). Each has YAML frontmatter (`name`, `description`) followed by markdown body. Names use `aolun-` prefix for entry skills and `aolun-inter-` prefix for internal pipeline skills. |
+| `skills/aolun-fileflow/SKILL.md` | File-based persistent analysis router for long texts (≥1500 chars). Auto-routed by `aolun-arming` or invoked directly. Saves each step to `docs/aolun.skill/` and pauses for user confirmation to prevent context loss from compaction. |
 | `commands/*.md` | Slash-command definitions for Claude Code / Cursor. Also have frontmatter. |
 | `hooks/` | Session-start hook that injects `aolun-arming` bootstrap into new conversations. |
 | `.opencode/plugins/aolun.js` | OpenCode plugin: registers skills path and injects bootstrap into first user message. |
@@ -41,6 +42,13 @@ aolun-ground (前置调研，面对不熟悉领域时使用) ⚡入口
 aolun-build (正向实践规划器) ⚡入口
   → (可选) aolun-other-mountains  (MEP 设计需要跨领域解法时)
   → (可选) aolun-attack            (发现现有主流做法存在严重误导时清场)
+
+aolun-fileflow (文件持久化分析路由器，长文本 ≥1500字符时由 aolun-arming 自动路由，或用户直接调用) ⚡入口
+  → 按序调用 aolun-dissect-concept → aolun-inter-dissect-mechanism →
+    aolun-inter-dissect-constraint → aolun-inter-dissect-interest →
+    aolun-scan-orchestrator → (可选) aolun-other-mountains → aolun-attack
+  → 每步输出落盘为 docs/aolun.skill/<date>-<brief>/<NN>-<skill>.md
+  → 用户确认后整合为 99-final-<slug>.md
 ```
 
 Dissectors must run in order. Scanners run in parallel via `aolun-scan-orchestrator` after dissection (individual scan-* skills can still be called directly). Attack-writer runs last. For constructive planning, use `aolun-ground → aolun-build` instead of the dissect-scan-attack path.
