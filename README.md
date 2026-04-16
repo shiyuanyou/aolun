@@ -31,6 +31,9 @@
 【前置层】先建立认识基础（面对不熟悉的领域时）
   aolun-ground  感性认识建立 + 阶段判断（探索期/扩张期/存量期）  ⚡入口
 
+【文档准备】把任意输入转化为可分析的结构
+  aolun-prepare-docs  文档预处理器：快照/引用模式，生成索引和搜索策略  ⚡入口
+
 【解剖层】把论断拆开
   aolun-dissect-concept           概念层：这个词你说的是什么意思？  ⚡入口
   aolun-inter-dissect-mechanism   机制层：它声称通过什么原理实现？  内部
@@ -50,6 +53,9 @@
 
 【输出层】写出来
   aolun-attack  辩证诊断 → 三件武器（引证 / 解构 / 反讽）→ 实践验证 → 战斗文本  ⚡入口
+
+【长文本/多文件】文件持久化分析
+  aolun-fileflow  文件持久化路由器：长文本和路径输入自动路由，多源输入（粘贴/单文件/目录），快照/引用两种模式  ⚡入口
 ```
 
 ---
@@ -104,6 +110,7 @@
 
 ```
 /aolun-ground               前置调研：感性认识建立 + 阶段判断（⚡入口）
+/aolun-prepare-docs         文档预处理器：快照/引用模式，生成索引和搜索策略（⚡入口）
 /aolun-dissect-concept      概念层解剖（⚡入口）
 /aolun-inter-dissect-mechanism    机制层解剖（内部）
 /aolun-inter-dissect-constraint   约束层解剖（内部）
@@ -117,6 +124,7 @@
 /aolun-attack               战斗文本生成（⚡入口）
 /aolun-quick-shot            快速狙击（Workflow 1）
 /aolun-full-teardown        底朝天全拆（Workflow 3）
+/aolun-fileflow             文件持久化路由器（⚡入口）
 ```
 
 ---
