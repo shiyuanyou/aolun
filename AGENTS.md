@@ -1,88 +1,82 @@
 # AGENTS.md — aolun (敖论)
 
-## What this repo is
+## 这仓库是什么
 
-A multi-platform skill plugin that equips AI agents with a systematic critical-thinking methodology. Skills dissect technical claims through four layers (concept → mechanism → constraint → interest), scan for weaknesses, pull cross-domain solutions, and generate Li Ao–style attack prose.
+多平台 skill 插件，为 AI agent 提供系统化批判思维方法论：四层解剖（概念→机制→约束→利益）→ 四维扫描 → 跨域重建 → 李敖风格战斗文本生成。
 
-## Repository structure
+## 仓库结构
 
-| Path | Purpose |
-|------|---------|
-| `skills/*/SKILL.md` | Core skill definitions (16 skills). Each has YAML frontmatter (`name`, `description`) followed by markdown body. Names use `aolun-` prefix for entry skills and `aolun-inter-` prefix for internal pipeline skills. |
-| `skills/aolun-fileflow/SKILL.md` | File-based persistent analysis router for long texts (≥1500 chars). Auto-routed by `aolun-arming` or invoked directly. Saves each step to `docs/aolun.skill/` and pauses for user confirmation to prevent context loss from compaction. |
-| `commands/*.md` | Slash-command definitions for Claude Code / Cursor. Also have frontmatter. |
-| `hooks/` | Session-start hook that injects `aolun-arming` bootstrap into new conversations. |
-| `.opencode/plugins/aolun.js` | OpenCode plugin: registers skills path and injects bootstrap into first user message. |
-| `.claude-plugin/plugin.json` | Claude Code plugin manifest. |
-| `.cursor-plugin/plugin.json` | Cursor plugin manifest. |
-| `.codex/INSTALL.md` | Codex manual install instructions. |
-| `tests/validate.sh` / `validate.ps1` | Validation: checks JSON, required files, frontmatter, and hook executability. |
+| 路径 | 用途 |
+|------|------|
+| `skills/*/SKILL.md` | 17 个 skill 定义，每个含 YAML frontmatter（`name`、`description`）+ markdown 正文。入口 skill 用 `aolun-` 前缀，内部 skill 用 `aolun-inter-` 前缀 |
+| `skills/aolun-prepare-docs/SKILL.md` | 新增：文档准备 skill，将任意输入（文本/文件/目录）转化为管线可消费的标准文档结构 |
+| `skills/aolun-fileflow/SKILL.md` | 文件持久化分析路由器（长文本≥1500字符由 arming 自动路由，或用户直接调用）。支持多源输入（快照/引用模式） |
+| `commands/*.md` | 斜杠命令定义（Claude Code / Cursor），同样需要 frontmatter |
+| `hooks/` | 会话启动时注入 arming bootstrap；`session-start` 必须 `chmod +x` |
+| `.opencode/plugins/aolun.js` | OpenCode 插件：注册 skills 路径 + 在首条消息注入 bootstrap |
+| `.claude-plugin/` / `.cursor-plugin/` | 各平台插件清单 |
+| `.codex/INSTALL.md` | Codex 手动安装说明 |
+| `tests/validate.sh` / `validate.ps1` | 校验脚本 |
+| `docs/specs/` | 设计规格文档 |
+| `docs/superpowers/plans/` | 实施计划 |
 
-## Key conventions
-
-- **SKILL.md frontmatter is required.** Every `skills/*/SKILL.md` and `commands/*.md` must start with `---` frontmatter containing `name:` and `description:`.
-- **Frontmatter must be stripped before use.** The OpenCode plugin (`aolun.js`) strips frontmatter via regex; the session-start hook does not strip it (the receiving platform handles that). If you add a new skill, ensure your frontmatter parsing matches the existing pattern.
-- **Skills are pure Markdown instruction sets.** They contain no executable code — they are loaded and interpreted by the host agent.
-
-## Skill dependency chain
-
-Skills are not independent. The required invocation order is:
+## Skill 依赖链
 
 ```
-aolun-arming (router, session bootstrap) ⚡入口
-  → aolun-dissect-concept → aolun-inter-dissect-mechanism → aolun-inter-dissect-constraint → aolun-inter-dissect-interest
-  → aolun-scan-orchestrator (parallel: scan-logic / scan-engineering / scan-history / scan-motive)
-  → aolun-other-mountains
-  → aolun-attack
+aolun-arming（路由器，会话启动）⚡入口
+  → aolun-dissect-concept → aolun-inter-dissect-mechanism
+    → aolun-inter-dissect-constraint → aolun-inter-dissect-interest
+  → aolun-scan-orchestrator（并行 dispatch 四个扫描器）⚡入口
+  → aolun-other-mountains → aolun-attack
 
-aolun-ground (前置调研，面对不熟悉领域时使用) ⚡入口
-  → aolun-dissect-concept  (携带阶段判断报告，进入拆解路径)
-  → aolun-build            (携带完整 ground 报告，进入正向建设路径)
+aolun-ground（前置调研）⚡入口
+  → aolun-dissect-concept（带入阶段判断报告）
+  → aolun-build（带入完整 ground 报告）
 
-aolun-build (正向实践规划器) ⚡入口
-  → (可选) aolun-other-mountains  (MEP 设计需要跨领域解法时)
-  → (可选) aolun-attack            (发现现有主流做法存在严重误导时清场)
+aolun-build（正向规划）⚡入口
+  → (可选) aolun-other-mountains / aolun-attack
 
-aolun-fileflow (文件持久化分析路由器，长文本 ≥1500字符时由 aolun-arming 自动路由，或用户直接调用) ⚡入口
-  → 按序调用 aolun-dissect-concept → aolun-inter-dissect-mechanism →
-    aolun-inter-dissect-constraint → aolun-inter-dissect-interest →
-    aolun-scan-orchestrator → (可选) aolun-other-mountains → aolun-attack
-  → 每步输出落盘为 docs/aolun.skill/<date>-<brief>/<NN>-<skill>.md
-  → 用户确认后整合为 99-final-<slug>.md
+aolun-fileflow（文件持久化路由器）⚡入口
+  → aolun-prepare-docs（文档准备，step 2.5）⚡入口
+  → aolun-dissect-concept → ... → aolun-attack
+  → 每步输出 → docs/aolun.skill/<date>-<brief>/<NN>-<skill>.md
 ```
 
-Dissectors must run in order. Scanners run in parallel via `aolun-scan-orchestrator` after dissection (individual scan-* skills can still be called directly). Attack-writer runs last. For constructive planning, use `aolun-ground → aolun-build` instead of the dissect-scan-attack path.
+解剖器必须按顺序执行。扫描器通过 `aolun-scan-orchestrator` 并行。攻击文最后。正向规划用 `aolun-ground → aolun-build`。
 
-## Running validation
+## 验证
 
 ```bash
 npm test
-# or directly:
+# 或直接：
 bash tests/validate.sh
-```
-
-On Windows:
-```powershell
+# Windows：
 npm run test:win
 ```
 
-Validation checks: JSON validity of config files, presence of all required files, YAML frontmatter in every SKILL.md and command file, and that `hooks/session-start` is executable.
+校验内容：JSON 文件合法性、必需文件存在性、所有 SKILL.md 和 command 文件的 YAML frontmatter、hooks 可执行权限。
 
-## When editing skills
+**注意**：`validate.sh` 的必需文件清单未包含 `aolun-prepare-docs`、`aolun-fileflow`、`aolun-scan-orchestrator`。frontmatter 检查通过通配符覆盖它们，但如果这些文件被删除不会被标记为缺失。新增 skill 时记得更新验证脚本的必需文件列表。
 
-- Preserve the `---` frontmatter block with `name` and `description` fields at the top of every SKILL.md.
-- The `description` field is the skill's trigger description — it must clearly state when the skill should activate.
-- After editing, run `npm test` to validate.
-- Skill content is bilingual (Chinese primary, English secondary). Maintain both unless intentionally removing one.
+## 编辑 skill 时的规则
 
-## Multi-platform install
+- 每个 SKILL.md 顶部必须保留 `---` frontmatter，含 `name` 和 `description` 字段
+- `description` 是 skill 的触发描述，必须清楚说明何时激活
+- frontmatter 在使用前必须被剥离：OpenCode 插件 (`aolun.js`) 用正则剥离；`hooks/session-start` 不剥离（由平台处理）
+- Skill 内容双语（中文为主，英文为辅），除非刻意删除一种
+- 编辑后跑 `npm test` 验证
+
+## 多平台安装
 
 - **Claude Code**: `claude --plugin-dir .`
-- **OpenCode**: add `"aolun@git+https://github.com/shiyuanyou/aolun.git"` to `opencode.json` plugin array
-- **Cursor/Codex**: see `.cursor-plugin/` and `.codex/INSTALL.md`
+- **OpenCode**: `opencode.json` 的 plugin 数组里加 `"aolun@git+https://github.com/shiyuanyou/aolun.git"`
+- **Cursor/Codex**: 见 `.cursor-plugin/` 和 `.codex/INSTALL.md`
 
-## Gotchas
+## 易错点
 
-- `hooks/session-start` must be `chmod +x` — the validation script checks this.
-- The OpenCode plugin path (`../../skills`) is relative to `.opencode/plugins/aolun.js`. Moving the plugin file breaks skill discovery.
-- The skill injector in `aolun.js` prepends bootstrap to the first user message part — it does not replace it. This means the bootstrap content appears every new session automatically on OpenCode.
+- **`hooks/session-start` 必须 `chmod +x`**——验证脚本会检查
+- **OpenCode 插件路径** (`../../skills`) 是相对于 `.opencode/plugins/aolun.js` 的，移动插件文件会破坏 skill 发现
+- **Bootstrap 注入方式**：`aolun.js` 在首条用户消息前 prepend bootstrap 内容，不是替换
+- **fileflow 多源输入**：粘贴走快照模式（copy 到任务目录），文件/目录路径走引用模式（直接读源路径）。路径输入在长度检查之前就被 arming 路由到 fileflow
+- **fileflow 的 `00-original.md` 不含文件头**——元数据放在 `00-prep-meta.md` 或 `00-todolist.md`，行号引用才能对齐
+- **扫描器引用格式**：粘贴/单文件模式用 `第<N>行："引用"`；目录模式用 `<文件名>:<N>："引用"`
