@@ -44,6 +44,9 @@ for f in \
   skills/aolun-workflows/SKILL.md \
   skills/aolun-ground/SKILL.md \
   skills/aolun-build/SKILL.md \
+  skills/aolun-fileflow/SKILL.md \
+  skills/aolun-scan-orchestrator/SKILL.md \
+  skills/aolun-prepare-docs/SKILL.md \
   .codex/INSTALL.md \
   .opencode/INSTALL.md
 do
