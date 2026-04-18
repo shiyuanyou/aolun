@@ -6,10 +6,10 @@
 
 ## Installation
 
-1. Clone aolun to a local directory:
+1. Clone aolun to `~/.aolun`:
 
 ```bash
-git clone https://github.com/shiyuanyou/aolun.git ~/git-repos/aolun
+git clone https://github.com/shiyuanyou/aolun.git ~/.aolun
 ```
 
 2. Add the skills path to your `~/.config/opencode/opencode.json`:
@@ -18,7 +18,7 @@ git clone https://github.com/shiyuanyou/aolun.git ~/git-repos/aolun
 {
   "$schema": "https://opencode.ai/config.json",
   "skills": {
-    "paths": ["~/git-repos/aolun/skills"]
+    "paths": ["~/.aolun/skills"]
   }
 }
 ```
