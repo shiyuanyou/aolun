@@ -6,72 +6,62 @@
 
 ## Installation
 
-Add aolun to the `plugin` array in your `opencode.json` (global or project-level):
+1. Clone aolun to a local directory:
+
+```bash
+git clone https://github.com/shiyuanyou/aolun.git ~/git-repos/aolun
+```
+
+2. Add the skills path to your `~/.config/opencode/opencode.json`:
 
 ```json
 {
-	"plugin": ["aolun@git+https://github.com/shiyuanyou/aolun.git"]
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": ["~/git-repos/aolun/skills"]
+  }
 }
 ```
 
-Restart OpenCode. That's it - the plugin auto-installs and registers all skills.
+That's it. No npm install, no plugin loading, no network requests on startup.
 
 Verify by asking: "你现在有哪些批判超能力？"
 
-## Migrating from the old manual-load install
+## Migrating from the old JS plugin install
 
-If you previously installed aolun using manual skill loading or old symlink-based setup, clean up first:
+If you previously used the `plugin` array:
 
 ```bash
-# Remove old plugin symlink (if any)
-rm -f ~/.config/opencode/plugins/aolun.js
-
-# Remove old local clone install (optional)
-rm -rf ~/.config/opencode/aolun
-
-# Remove skills.paths entries that point to aolun if you added them manually
+# Remove old plugin config — replace with skills.paths (see above)
+# Delete old node_modules
+rm -rf ~/git-repos/aolun/.opencode/node_modules
+rm -rf ~/.config/opencode/node_modules
 ```
-
-Then follow the installation steps above.
 
 ## Usage
 
-Use OpenCode's native `skill` tool:
+Use OpenCode's native `skill` tool to load aolun skills:
 
 ```
-use skill tool to list skills
 use skill tool to load aolun-arming
 use skill tool to load aolun-attack
 ```
 
-Note: For maximum compatibility, the current plugin does not inject bootstrap text automatically.
-Load `aolun-arming` manually at the beginning of a new task/session.
-
 ## Updating
 
-aolun updates automatically when you restart OpenCode.
-
-To pin a specific version:
-
-```json
-{
-	"plugin": ["aolun@git+https://github.com/shiyuanyou/aolun.git#v1.0.1"]
-}
+```bash
+cd ~/git-repos/aolun && git pull
 ```
+
+Updates take effect on next session. No restart needed if you're already in a session.
 
 ## Troubleshooting
 
-### Plugin not loading
-
-1. Check logs: `opencode run --print-logs "hello" 2>&1 | grep -Ei "aolun|plugin"`
-2. Verify the plugin line in your `opencode.json`
-3. Make sure you're running a recent version of OpenCode
-
 ### Skills not found
 
-1. Use `skill` tool to list what's discovered
-2. Check that the plugin is loading (see above)
-3. Each skill directory must contain a valid `SKILL.md` frontmatter
+1. Run `opencode debug skill` to list discovered skills
+2. Verify the `skills.paths` entry points to the correct directory
+3. Each skill directory must contain a valid `SKILL.md` with frontmatter (`name` + `description`)
 
 ### Tool mapping
 

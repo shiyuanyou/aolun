@@ -31,21 +31,21 @@ aolun-fileflow（文件持久化路由器，长文本/路径输入）⚡
 ## 编辑规则
 
 - 每个 SKILL.md 顶部必须有 `---` frontmatter，含 `name` 和 `description`（触发描述）
-- frontmatter 由各平台自行剥离：OpenCode (`aolun.js` 正则剥离)、`hooks/session-start` 不剥离
+- frontmatter 由各平台自行剥离：OpenCode（原生 skill tool 自动剥离）、`hooks/session-start` 不剥离
 - 内容双语（中文为主，英文为辅）
 - 编辑后跑 `npm test`
 
 ## 多平台安装
 
+- **OpenCode**: `opencode.json` 加 `skills.paths` 指向本地 `skills/` 目录（见 `.opencode/INSTALL.md`）
 - **Claude Code**: `claude --plugin-dir .`
-- **OpenCode**: `opencode.json` plugin 数组加 `"aolun@git+https://github.com/shiyuanyou/aolun.git"`
 - **Cursor/Codex**: 见 `.cursor-plugin/` 和 `.codex/INSTALL.md`
 
 ## 易错点
 
 - **`hooks/session-start` 必须 `chmod +x`** — validate.sh 会检查
-- **OpenCode 插件 skill 路径** (`../../skills`) 相对于 `.opencode/plugins/aolun.js`，移动文件会破坏发现
-- **Bootstrap 注入**：`aolun.js` 在首条用户消息前 prepend（`parts.unshift`），不是替换
+- **OpenCode skills 路径**：全局 `opencode.json` 的 `skills.paths` 指向 aolun 的 `skills/` 目录，无需 JS 插件
+- **Bootstrap 注入**：通过 `AGENTS.md` 的 `instructions` 机制或手动 `skill` 加载 `aolun-arming`，不再依赖 JS 插件 prepend
 - **fileflow 多源输入**：路径输入在长度检查之前被 arming 路由到 fileflow（路径通常 < 1500 字符）
 - **`00-original.md` 无文件头** — 元数据在 `00-prep-meta.md` 或 `00-todolist.md`，行号引用才能对齐
 - **引用格式**：单文件模式 `第<N>行："引用"`；目录模式 `<文件名>:<N>："引用"`
