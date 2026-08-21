@@ -37,13 +37,15 @@ foreach ($f in @(".claude-plugin/plugin.json", ".cursor-plugin/plugin.json", "ho
 Write-Host "Validating required files..."
 $required = @(
     "hooks/session-start", "hooks/session-start.ps1", "hooks/run-hook.cmd",
-    "skills/arming-liao/SKILL.md",
-    "skills/dissector-concept/SKILL.md", "skills/dissector-mechanism/SKILL.md",
-    "skills/dissector-constraint/SKILL.md", "skills/dissector-interest/SKILL.md",
-    "skills/scanner-logic/SKILL.md", "skills/scanner-engineering/SKILL.md",
-    "skills/scanner-history/SKILL.md", "skills/scanner-motive/SKILL.md",
-    "skills/other-mountains/SKILL.md", "skills/attack-writer/SKILL.md",
-    "skills/workflows/SKILL.md",
+    "skills/aolun-arming/SKILL.md",
+    "skills/aolun-dissect/SKILL.md",
+    "skills/aolun-scan/SKILL.md",
+    "skills/aolun-fileflow/SKILL.md",
+    "skills/aolun-attack/SKILL.md",
+    "skills/aolun-build/SKILL.md",
+    "skills/aolun-ground/SKILL.md",
+    "skills/aolun-other-mountains/SKILL.md",
+    "skills/aolun-prepare-docs/SKILL.md",
     ".codex/INSTALL.md", ".opencode/INSTALL.md"
 )
 foreach ($f in $required) {

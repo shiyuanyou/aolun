@@ -31,21 +31,13 @@ for f in \
   hooks/session-start.ps1 \
   hooks/run-hook.cmd \
   skills/aolun-arming/SKILL.md \
-  skills/aolun-dissect-concept/SKILL.md \
-  skills/aolun-inter-dissect-mechanism/SKILL.md \
-  skills/aolun-inter-dissect-constraint/SKILL.md \
-  skills/aolun-inter-dissect-interest/SKILL.md \
-  skills/aolun-scan-logic/SKILL.md \
-  skills/aolun-scan-engineering/SKILL.md \
-  skills/aolun-scan-history/SKILL.md \
-  skills/aolun-scan-motive/SKILL.md \
-  skills/aolun-other-mountains/SKILL.md \
-  skills/aolun-attack/SKILL.md \
-  skills/aolun-workflows/SKILL.md \
-  skills/aolun-ground/SKILL.md \
-  skills/aolun-build/SKILL.md \
+  skills/aolun-dissect/SKILL.md \
+  skills/aolun-scan/SKILL.md \
   skills/aolun-fileflow/SKILL.md \
-  skills/aolun-scan-orchestrator/SKILL.md \
+  skills/aolun-attack/SKILL.md \
+  skills/aolun-build/SKILL.md \
+  skills/aolun-ground/SKILL.md \
+  skills/aolun-other-mountains/SKILL.md \
   skills/aolun-prepare-docs/SKILL.md \
   .codex/INSTALL.md \
   .opencode/INSTALL.md

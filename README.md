@@ -3,165 +3,61 @@
 > "我批评人，是有凭据的。我的批评一剑封喉，因为我把他们的底裤都翻出来了。"
 > —— 李敖
 
-**你的 AI 拿到一篇技术帖子，会做什么？**
-
-大概率：列优缺点，说"这取决于具体情况"，然后提醒你"仍需进一步研究"。
-
-**这不是批判。这是总结。**
-
-总结不会告诉你一个架构方案的主要矛盾在哪里。不会告诉你一篇材料宣传文章的利益链指向谁。不会告诉你一个"行业共识"究竟是知识积累还是路径依赖的产物。
-
-「敖论」做的是另一件事：**把任何技术论断拆底朝天，然后指出更好的方向。**
-
-不是风格模仿。是真正有杀伤力的工程判断。
+「敖论」把任何技术论断拆底朝天，然后指出更好的方向——不是风格模仿，是真正有杀伤力的工程判断。
 
 ---
 
-## 它是怎么做到的
+## 架构
 
-方法论来自两个来源的融合：
-
-**李敖的批判方法**——先把定义要清楚，再把机制拆干净，然后把约束摆出来，最后问谁在推它、他们得什么好处。四层全部暴露，再找弱点，再找更好的解法。
-
-**毛泽东《矛盾论》的辩证框架**——在动笔攻击之前，先识别论断内部的主要矛盾是什么、主要矛盾的主要方面在哪里。攻击要打主要矛盾，而不是在边缘问题上消耗力气。
-
-两者结合，形成一套四层 × 四维 × 跨域的系统：
+两段式核心 + fileflow 默认流程：
 
 ```
-【前置层】先建立认识基础（面对不熟悉的领域时）
-  aolun-ground  感性认识建立 + 阶段判断（探索期/扩张期/存量期）  ⚡入口
-
-【文档准备】把任意输入转化为可分析的结构
-  aolun-prepare-docs  文档预处理器：快照/引用模式，生成索引和搜索策略  ⚡入口
-
-【解剖层】把论断拆开
-  aolun-dissect-concept           概念层：这个词你说的是什么意思？  ⚡入口
-  aolun-inter-dissect-mechanism   机制层：它声称通过什么原理实现？  内部
-  aolun-inter-dissect-constraint  约束层：在什么条件下才成立？  内部
-  aolun-inter-dissect-interest    利益层：谁在推它，他们得什么好处？  内部
-
-【扫描层】找弱点（并行）
-  aolun-scan-orchestrator  并行 dispatch 四个扫描器  ⚡入口
-  aolun-scan-logic         逻辑弱点：论证结构有没有问题？
-  aolun-scan-engineering   工程弱点：在实际工程中能不能成立？
-  aolun-scan-history       历史弱点：历史上有没有同类失败案例？
-  aolun-scan-motive        动机弱点：信息是怎么被选择性呈现的？
-
-【重建层】找更好方向
-  aolun-other-mountains  跨领域解法引擎：其他领域有没有解决了类似问题的方案？  ⚡入口
-  aolun-build            正向实践规划器：群众路线 + 持久战阶段匹配  ⚡入口
-
-【输出层】写出来
-  aolun-attack  辩证诊断 → 三件武器（引证 / 解构 / 反讽）→ 实践验证 → 战斗文本  ⚡入口
-
-【长文本/多文件】文件持久化分析
-  aolun-fileflow  文件持久化路由器：长文本和路径输入自动路由，多源输入（粘贴/单文件/目录），快照/引用两种模式  ⚡入口
+aolun-arming（会话入口路由器）⚡
+  ├─ aolun-dissect   解剖：看清论断声称什么、凭什么成立、在什么条件下、谁在推
+  ├─ aolun-scan      扫描：找未被解剖覆盖的弱点（逻辑/工程/历史/动机）
+  ├─ aolun-other-mountains  跨领域解法（可选）
+  └─ aolun-attack    整合成李敖风格战斗文本
 ```
 
----
+配套 skill：
+- `aolun-ground` — 进入解剖/建设前先建立最小感性认识、判断所处阶段
+- `aolun-build` — 正向建设（技术方案/产品路径/团队实践）的实践规划
+- `aolun-prepare-docs` — 把文本/路径转成标准文档结构（快照/引用），fileflow 可选前置
+- `aolun-fileflow` — 长文本/方案的文件持久化路由器，多源输入、Workflow 1/2/3
 
-## 一个真实的例子
+## 工作流（在 `aolun-fileflow/SKILL.md`）
 
-**输入：**
-> "微服务架构能大幅提升系统可维护性，因为每个服务独立部署、独立扩展。"
-
-**敖论会做什么：**
-
-1. **概念层**：「可维护性」在这里指什么？是改动成本、故障隔离、还是团队自治？三个含义对应三套完全不同的论证。
-
-2. **机制层**：「独立部署 → 可维护性提升」这条因果链的每个环节是否成立？独立部署引入了分布式事务、服务发现、网络延迟——这些新增复杂度有没有被计入？
-
-3. **约束层**：「独立扩展」在多大团队规模下才有意义？Netflix 的做法在 5 人团队里是否适用？
-
-4. **利益层**：这篇文章来自哪个云厂商的技术博客？他们的 managed Kubernetes 服务卖多少钱一个月？
-
-5. **主要矛盾**：这个论断最核心的问题不是技术正确性，而是**适用边界的刻意模糊**——把大规模场景下的收益无差别地推广到所有规模，掩盖了规模不匹配时微服务的真实成本。
-
-6. **攻击文本**：打主要矛盾，用引证 + 解构写出一篇有具体数字支撑、有历史案例对比、最后给出「什么规模适合什么架构」明确结论的战斗文稿。
-
-**这不是让 AI 帮你写喷子评论。是让 AI 做严肃的工程批判。**
+| 工作流 | 流程 | 命令 |
+|--------|------|------|
+| Workflow 1 快速狙击 | `01-dissect`（轻量）→ `02-attack`（50–200 字） | `/aolun-quick-shot` |
+| Workflow 2 标准拆解（默认） | `01-dissect → 02-scan → 03-other-mountains（可选）→ 04-attack → 99-final` | — |
+| Workflow 3 底朝天全拆 | `01-dissect → 02-scan → 02b-deep-verify（可选）→ 03-other-mountains（可选）→ 04-attack → 99-final` | `/aolun-full-teardown` |
+| 正向建设 | `aolun-ground → aolun-build` | — |
 
 ---
 
-## 工程领域覆盖
+## 验证
 
-- **计算机工程**：软件架构、系统设计、算法、基础设施、AI/ML
-- **建筑与土木**：结构体系、材料、施工工艺、城市规划
-- **机械工程**：动力系统、传动机构、制造工艺、可靠性
-- **自动化与控制**：控制系统、传感器、执行器、工业协议
-- **产品设计**：人机工程、材料选择、制造可行性、生命周期
-
----
-
-## 四条工作流
-
-根据目标选择：
-
-| 工作流 | 场景 | 时间 | 命令 |
-|--------|------|------|------|
-| 快速狙击 | 推文/短帖，快速回应 | 5–10 分钟 | `/quick-shot` |
-| 标准拆解 | 完整技术文章或方案 | 30–60 分钟 | 手动逐层调用 |
-| 底朝天全拆 | 重要行业论断或主流方法论 | 1–3 小时 | `/full-teardown` |
-| 正向建设 | 规划新方案/产品路径/团队实践 | 30–90 分钟 | `aolun-ground → aolun-build` |
-
----
-
-## 完整命令列表
-
-```
-/aolun-ground               前置调研：感性认识建立 + 阶段判断（⚡入口）
-/aolun-prepare-docs         文档预处理器：快照/引用模式，生成索引和搜索策略（⚡入口）
-/aolun-dissect-concept      概念层解剖（⚡入口）
-/aolun-inter-dissect-mechanism    机制层解剖（内部）
-/aolun-inter-dissect-constraint   约束层解剖（内部）
-/aolun-inter-dissect-interest    利益层解剖（内部）
-/aolun-scan-logic           逻辑弱点扫描（⚡入口）
-/aolun-scan-engineering     工程弱点扫描（⚡入口）
-/aolun-scan-history         历史弱点扫描（⚡入口）
-/aolun-scan-motive          动机弱点扫描（⚡入口）
-/aolun-other-mountains      跨领域解法引擎（⚡入口）
-/aolun-build                正向实践规划器（⚡入口）
-/aolun-attack               战斗文本生成（⚡入口）
-/aolun-quick-shot            快速狙击（Workflow 1）
-/aolun-full-teardown        底朝天全拆（Workflow 3）
-/aolun-fileflow             文件持久化路由器（⚡入口）
+```bash
+bash tests/validate.sh    # 或 npm test
+npm run test:win          # Windows
 ```
 
 ---
 
 ## 安装
 
-### Claude Code
-```bash
-git clone https://github.com/shiyuanyou/aolun
-cd aolun
-claude --plugin-dir .
-```
-
-### OpenCode
-```bash
-# 在 opencode.json 里添加插件（全局或项目级）
-{
-  "plugin": ["aolun@git+https://github.com/shiyuanyou/aolun.git"]
-}
-
-# 重启 OpenCode（会自动注册 skills；新任务开始时手动 load aolun-arming）
-```
-
-### Cursor / Codex
-参见 `.cursor-plugin/` 和 `.codex/INSTALL.md`。
+- **Claude Code**：`git clone https://github.com/shiyuanyou/aolun && cd aolun && claude --plugin-dir .`
+- **OpenCode**：`opencode.json` 加 `skills.paths` 指向本地 `skills/` 目录（见 `.opencode/INSTALL.md`）
+- **Cursor / Codex**：见 `.cursor-plugin/` 和 `.codex/INSTALL.md`
 
 ---
 
-## 思想来源
+## 编辑规则
 
-- 李敖的批判方法论（概念 → 机制 → 约束 → 利益）
-- 毛泽东《矛盾论》（主要矛盾识别 + 矛盾特殊性分析）
-- 毛泽东《实践论》（实践验证 + 认识螺旋）
-- 毛泽东《论持久战》（阶段判断 + 阶段匹配战略）
-- 毛泽东群众路线（调查先于方案；从群众中来，到群众中去）
-
-这不是思想背书，是方法论工具箱。取其方法，不论其政治。
+- 每个 `skills/*/SKILL.md` 顶部必须有 `---` frontmatter，含 `name` 和 `description`
+- 新增 skill 时同步更新 `tests/validate.sh` 的必需文件列表
+- 编辑后跑 `bash tests/validate.sh` 或 `npm test`
 
 ---
 

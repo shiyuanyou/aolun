@@ -34,7 +34,7 @@ function ConvertTo-AsciiJsonString {
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $pluginRoot = Split-Path -Parent $scriptDir
-$skillPath = Join-Path $pluginRoot "skills\arming-liao\SKILL.md"
+$skillPath = Join-Path $pluginRoot "skills\aolun-arming\SKILL.md"
 
 if (-not (Test-Path -LiteralPath $skillPath)) {
     throw "Missing skill file: $skillPath"
@@ -42,12 +42,12 @@ if (-not (Test-Path -LiteralPath $skillPath)) {
 
 $armingLiaoContent = Get-Content -LiteralPath $skillPath -Raw -Encoding UTF8
 $sessionContext = @"
-<LIAO_SKILL>
-已加载 liao:arming-liao。请先遵守用户指令、项目约束和宿主平台规则，再在明确适用时把这份拆解攻击方法论作为补充框架。
+<AOLUN_SKILL>
+已加载 aolun:aolun-arming。请先遵守用户指令、项目约束和宿主平台规则，再在明确适用时把这份拆解攻击方法论作为补充框架。
 
 $armingLiaoContent
 
-</LIAO_SKILL>
+</AOLUN_SKILL>
 "@
 
 $sessionContextJson = ConvertTo-AsciiJsonString -Value $sessionContext
