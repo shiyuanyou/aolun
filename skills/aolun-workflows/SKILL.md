@@ -1,16 +1,24 @@
 ---
 name: aolun-workflows
-description: |
-  ⚡入口 skill。当你需要对一篇帖子执行完整的拆解攻击流程时调用；提供四条标准化工作流，定义 skill 的调用顺序、步骤间的数据传递和终止条件。
-  English: Entry skill. Trigger when executing a full dissect-and-attack pipeline on a target post. Provides four standardized workflows with defined skill sequencing, data handoff, and termination conditions.
+description: "需要对帖子执行完整拆解攻击流程时用；提供预设菜单（skill 调用顺序、数据交接、终止条件）作为参考，不是强制流水线；按需进入/跳过。"
 ---
 
-# 工作流编排层
+# 工作流编排层（预设菜单 + 数据交接参考）
 
 > "打仗要有战法。随便乱冲，不叫勇敢，叫送死。"
 > —— 李敖
 
 方法的威力不在于单独使用某一件武器，而在于**在正确的时机以正确的顺序组合使用**。
+
+## 定位：预设菜单，不是强制流水线
+
+本 skill 是**预设菜单 + 数据交接参考**，不是必须一步步走完的强制流水线。调用方（主 agent / `aolun-arming` / `aolun-fileflow`）根据任务实际情况**按需进入 / 跳过步骤**，只选取当前任务真正需要的 skill 组合，并参考这里的数据交接格式传递结论。
+
+- 每一步都是**可选入口**：用不到就跳过，不强制走完全部。
+- 每个 Workflow 只是「常见组合的参考」；实际执行以 `aolun-arming` 的按需原则和 `aolun-fileflow` 的编排为准，这里不覆盖也不重复它们。
+- 路由与长度判断归 `aolun-arming`，长文本落盘归 `aolun-fileflow`；本 skill 只负责「选哪些步骤、按什么顺序、传什么数据」。
+
+**数据交接参考说明：** 下面各 Workflow 中「传递给下一层」的字段，是**建议的数据交接格式**——当某层真的执行时，按此把上游结论传给下游；若某层被跳过，则该交接随之跳过。
 
 ---
 
@@ -24,6 +32,8 @@ description: |
 aolun-dissect-concept → aolun-scan-logic → aolun-attack（快速评论模式）
    概念解剖      →   逻辑扫描   →   输出50-200字攻击文
 ```
+
+**按需进入/跳过：** 三步均为可选入口。若只需快速判断逻辑是否成立，可只走 `dissect-concept → scan-logic`，跳过 attack；若已有明确弱点、只想生成回应，可从 `scan-logic` 直接进 attack。
 
 ### 步骤详解
 
@@ -63,13 +73,19 @@ aolun-dissect-concept → aolun-scan-logic → aolun-attack（快速评论模式
 aolun-dissect-concept → aolun-inter-dissect-mechanism → aolun-inter-dissect-constraint → aolun-inter-dissect-interest
      概念          →      机制           →       约束          →      利益
          ↓
-aolun-scan-orchestrator（单次消息并行 dispatch 四个扫描器 subagent）
+aolun-scan-orchestrator（按需：需要全维扫描时才调用；否则直接调对应单维 scan-*）
    → 返回扫描综合报告（约400字，替代原四份全文报告）
          ↓
    aolun-other-mountains（可选，如果有值得引入的跨领域解法）
          ↓
    aolun-attack（标准攻击文模式）
 ```
+
+**按需进入/跳过：**
+- **四层解剖**：不强制四层全走。若概念层已暴露主要问题且机制/约束/利益与此无关，可直接跳到扫描或攻击；只有需要全面拆解时才逐层执行。
+- **扫描层**：需要全维弱点才调 `aolun-scan-orchestrator`；只需某一维度（如只查逻辑）则直接调对应 `scan-*`。
+- **他山之石**：默认可选——只有需要跨领域解法时才引入。
+- **攻击**：若用户只想要分析结论、不要战斗文本，可在此停。
 
 ### 关键数据传递节点
 
@@ -110,14 +126,24 @@ aolun-scan-orchestrator（单次消息并行 dispatch 四个扫描器 subagent�
 ```
 Phase 1：全层解剖（四个解剖器全部执行）
 Phase 2：全维扫描（调用 aolun-scan-orchestrator，内部并行执行四个扫描器）
+Phase 2.5：深度验证（仅当证据不足时触发）
 Phase 3：他山之石（寻找所有可用的跨领域解法）
 Phase 4：综合攻击文（深度拆解结构）
 ```
 
+**按需进入/跳过：** 即使选 Workflow 3，也**不强制每一步都走**。各 Phase 只在实际需要时进入；若某层已得出充分结论，可跳过对应 Phase。
+
+**深度验证（Phase 2.5）仅在证据不足时触发：** 正常全维扫描（Phase 2）已产出证据充分、可直接攻击的弱点时，**不需要**深度验证轮次。只有当下述情况才触发对相应维度补充深度调查：
+- 某个维度的弱点清单中**证据不足**（缺原文行号/直接引用，或引用不足以支撑结论）；
+- 重要声称的因果链、工程可行性、历史先例或动机推断**尚无法验证**；
+- 综合报告出现「需主窗口决定」或「未找到直接证据」且该点属关键岔路。
+
+触发时才对对应维度做 `05b-scan-logic-deep` / `05c-scan-engineering-deep` 一类的深挖；证据充分的维度直接通过，不重复深挖。
+
 ### 各 Phase 的终止条件
 
 **Phase 1 终止条件：**
-四层解剖报告全部完成，且每层至少找到一个有具体依据的问题。
+四层解剖报告全部完成，且每层至少找到一个有具体依据的问题。（若某层无问题或无关，可明确声明并跳过，不强行凑数。）
 
 **Phase 2 终止条件：**
 四个扫描器报告全部完成。弱点清单按照以下三个维度排序：
@@ -125,8 +151,11 @@ Phase 4：综合攻击文（深度拆解结构）
 - 严重性（失效影响范围）
 - 可攻击性（能否用一两句话说清楚）
 
+**Phase 2.5 终止条件：**
+仅对证据不足的维度完成深度调查、补齐证据；证据充分的维度不经此轮。
+
 **Phase 3 终止条件：**
-找到至少一个结构相似性充分的跨领域解法，且迁移路径可以具体描述。
+找到至少一个结构相似性充分的跨领域解法，且迁移路径可以具体描述。（若无需跨领域解法，可跳过并说明。）
 
 **Phase 4 终止条件：**
 文章通过质量自检清单（见 aolun-attack 的质量自检部分）。
@@ -148,6 +177,8 @@ aolun-build（主要矛盾识别 → 最小有效实践 → 再认识循环）
     ↓
 （可选）aolun-attack（如果建设过程中发现现有主流做法存在严重误导，需要攻击清场）
 ```
+
+**按需进入/跳过：** 若已熟悉领域、无需建立感性认识，可跳过 `aolun-ground` 直接进 `aolun-build`；`other-mountains` 与 `attack` 均为可选，仅在确实需要时引入。
 
 ### 步骤详解
 
@@ -174,13 +205,15 @@ aolun-build（主要矛盾识别 → 最小有效实践 → 再认识循环）
 
 ---
 
-## 工作流选择指南
+## 工作流选择指南（预设参考，不是强制）
+
+> 路由与长度判断归 `aolun-arming`（路径/长文本 → fileflow，短文本 → 意图问询），长文本落盘编排归 `aolun-fileflow`。下表只是「常见情况 → 推荐预设」的参考，实际按需进入/跳过，不强制走完整个 Workflow。
 
 | 你的情况 | 推荐工作流 |
 |---------|----------|
 | 帖子不超过500字，需要快速回应 | Workflow 1：快速狙击 |
 | 帖子是一篇完整的技术文章或方案 | Workflow 2：标准拆解 |
-| 这是一个重要的行业论断或主流方法论 | Workflow 3：底朝天全拆 |
+| 这是一个重要的行业论断或主流方法论 | Workflow 3：底朝天全拆（深度验证仅证据不足时触发） |
 | 只需要找跨领域解法，不需要攻击文 | 四层解剖 + aolun-other-mountains |
 | 只需要确认一个逻辑是否成立 | aolun-dissect-concept + aolun-scan-logic |
 | 需要规划新方案/路径，不是批判现有东西 | Workflow 4：正向建设规划 |

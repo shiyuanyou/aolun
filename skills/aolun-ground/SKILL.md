@@ -1,8 +1,6 @@
 ---
 name: aolun-ground
-description: |
-  ⚡入口 skill。在进入解剖或建设之前，面对不熟悉的领域或复杂场景时调用。强制完成两件事：①建立最小感性认识（调查 3-5 个一手来源）；②判断当前所处阶段（探索期/扩张期/存量期），确定主要矛盾方向。防止"用训练数据里的印象解剖目标"和"理论推导代替实地调查"两类失效。
-  English: Entry skill. Trigger before dissection or planning when facing an unfamiliar domain or complex scenario. Forces two actions: ①build minimum grounded knowledge (survey 3-5 primary sources); ②determine current phase (exploration/expansion/steady-state) to orient the primary contradiction. Prevents two failure modes: analyzing from stale impressions, and deriving solutions from pure theory without field investigation.
+description: "进入解剖或建设前，面对陌生/复杂领域时先建立最小感性认识并判断所处阶段，避免凭印象或纯理论出发。"
 ---
 
 # 前置调研器

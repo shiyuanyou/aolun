@@ -1,15 +1,9 @@
 ---
 name: aolun-prepare-docs
-description: |
-  ⚡入口 skill。将任意输入（文本、文件路径、目录路径）转化为 aolun 分析管线可消费的标准文档结构。
-  支持快照模式（cp 到任务目录）和引用模式（直接读取源路径），生成索引、结构标注、搜索策略和文件完整性校验。
-  产出文件供 aolun-fileflow 直接消费，也可独立用于任何需要 Markdown 文档索引的场景。
-  English: Entry skill. Transforms any input (text, file path, directory path) into a standard document structure consumable by the aolun analysis pipeline.
-  Supports snapshot mode (copy to task directory) and reference mode (read source paths directly). Generates index, structural annotations, search strategies, and file integrity checksums.
-  Output files are consumed by aolun-fileflow, or used independently for any scenario requiring Markdown document indexing.
+description: "aolun-fileflow 的可选前置：把文本/文件路径/目录转成标准文档结构（快照/引用），生成 00-prep-meta / 00-index；供 fileflow 或 Markdown 索引场景使用。"
 ---
 
-# 文档预处理器
+# 文档预处理器（fileflow 可选前置）
 
 > "不打无准备之仗。"
 > —— 毛泽东
@@ -18,14 +12,14 @@ description: |
 
 本 skill 的核心职责：**把任意形式的输入，转化为后续分析管线可以直接消费的标准文档结构。**
 
-做完这一步，fileflow 可以拿前面已备好的弹药直接开干。
+本 skill 是 **`aolun-fileflow` 的可选前置**：当输入是文件路径 / 目录路径（或需要精细索引）时，先用本 skill 准备好文档，再交给 fileflow 开干；当输入是可直接粘贴的文本时，fileflow 也可以不经过本 skill 直接内联做最简准备。**本 skill 是 brief 提取 / 任务目录创建 / 快照·引用 / 索引生成的唯一权威**，fileflow 不重复定义这些规则，只消费其结果（详见 Part 6 与 fileflow 的「启动阶段」）。
 
 ---
 
 ## 核心原则
 
 1. **只准备，不分析**——本 skill 不做任何文本分析，只做文档准备和索引
-2. **解耦且异步**——产出放到 `docs/aolun.skill/` 目录，fileflow 之后消费，没有运行时依赖
+2. **可选前置，解耦且异步**——产出放到 `docs/aolun.skill/` 目录，fileflow 之后消费，没有运行时依赖；fileflow 检测到 `00-prep-meta.md` 即跳过自身准备步骤
 3. **通用**——不只为分析管线服务，任何需要索引 Markdown 文档的场景都能用
 
 ---
@@ -369,21 +363,19 @@ docs/aolun.skill/<yyyy-mm-dd>-<brief>/
 
 ### 与 aolun-fileflow 的关系
 
-本 skill 与 fileflow 完全解耦：
+本 skill 是 **fileflow 的可选前置**，且是**唯一权威**：
 
-- 本 skill 不知道 fileflow 的存在
-- 本 skill 的产出放到 `docs/aolun.skill/<date>-<brief>/` 目录
-- fileflow 启动时检测到 `00-prep-meta.md` 已存在，跳过文档准备，直接读取元信息后创建 `00-todolist.md`
-
-两者共享相同的目录结构和文件格式，但没有运行时依赖。
+- **单一权威**：brief 提取、任务目录创建、快照/引用、索引生成、搜索策略生成、崩溃恢复检测的规则统一以本 skill（Part 1-5）为准；fileflow 的「启动阶段」只消费其结果，不重复定义这些规则（fileflow 仅保留最简内联兜底，仅覆盖粘贴文本）。
+- **可选前置**：路径/目录输入优先走本 skill 准备；粘贴文本可跳过本 skill、由 fileflow 内联做最简准备。两者共享同一目录结构和文件格式，但**没有运行时依赖**——fileflow 不调用本 skill 的运行时，只检测其产物。
+- fileflow 启动时检测到 `00-prep-meta.md` 已存在，即跳过文档准备、读取元信息后创建 `00-todolist.md`（fileflow 的崩溃恢复与债区由 fileflow 负责，不属于本 skill）。
 
 ```
-用户 → aolun-prepare-docs → docs/aolun.skill/<date>-<brief>/
+用户 → aolun-prepare-docs（可选前置）→ docs/aolun.skill/<date>-<brief>/
                                       ├── 00-original.md 或 00-sources/
                                       ├── 00-index.md
                                       └── 00-prep-meta.md
 
 用户 → aolun-fileflow → 检测到 00-prep-meta.md？
                          ├── 是 → 跳过文档准备，读取元信息，创建 00-todolist.md
-                         └── 否 → 执行内联简化文档准备（仅粘贴文本场景）
+                         └── 否 → 内联最简准备（仅粘贴文本场景）；路径/目录则提示先用本 skill
 ```

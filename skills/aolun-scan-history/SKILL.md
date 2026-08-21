@@ -1,8 +1,6 @@
 ---
 name: aolun-scan-history
-description: |
-  ⚡入口 skill。解剖层完成后，扫描技术方案的历史弱点——这个"新"东西以前失败过吗？换皮重来了吗？历史上的同类方案留下了什么教训？
-  English: Entry skill. Trigger after dissection to scan for historical vulnerabilities—has this "new" thing failed before? Is it a a rebranded predecessor? What lessons did analogous historical approaches leave behind?
+description: "解剖后扫描历史弱点：以前失败过吗、是否换皮重来、同类历史方案有什么教训。"
 ---
 
 # 历史弱点扫描器

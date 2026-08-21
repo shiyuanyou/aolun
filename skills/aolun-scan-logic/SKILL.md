@@ -1,8 +1,6 @@
 ---
 name: aolun-scan-logic
-description: |
-  ⚡入口 skill。解剖层完成后，扫描帖子中的逻辑漏洞——推论跳跃、循环论证、错误类比、偷换概念、以偏概全等。专注于论证结构的有效性，而非技术内容的对错。
-  English: Entry skill. Trigger after dissection to scan for logical vulnerabilities—invalid inferences, circular reasoning, false analogies, equivocation, hasty generalization. Focus on argument structure validity, not technical content accuracy.
+description: "解剖后扫描逻辑漏洞：推论跳跃、循环论证、错误类比、偷换概念、以偏概全。"
 ---
 
 # 逻辑弱点扫描器

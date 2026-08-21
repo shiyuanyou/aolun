@@ -1,8 +1,6 @@
 ---
 name: aolun-scan-engineering
-description: |
-  ⚡入口 skill。解剖层完成后，扫描技术方案在真实工程环境下的可行性漏洞——性能瓶颈、可靠性缺陷、可维护性代价、实施复杂度等，覆盖计算机、建筑、机械、自动化、产品设计领域。
-  English: Entry skill. Trigger after dissection to scan for engineering feasibility gaps—performance bottlenecks, reliability defects, maintenance costs, implementation complexity—across software, civil, mechanical, automation, and product design domains.
+description: "解剖后扫描工程可行性漏洞：性能、可靠性、可维护性、实施复杂度等。"
 ---
 
 # 工程弱点扫描器

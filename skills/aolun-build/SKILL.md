@@ -1,8 +1,6 @@
 ---
 name: aolun-build
-description: |
-  ⚡入口 skill。当目标不是拆解批判，而是正向建设——规划技术方案、产品路径、团队实践——时调用。基于群众路线（调查先于方案）和论持久战三阶段论（阶段匹配战略），生成可操作的实践规划，包含：阶段定位 → 真实需求调查 → 识别主要矛盾 → 规划最小有效实践 → 定义成功标准 → 设计再认识循环。
-  English: Entry skill. Trigger when the goal is constructive planning—technical proposals, product roadmaps, team practices—not dissection. Grounds planning in mass-line investigation (survey before solution) and On Prolonged War phase theory (phase-matched strategy), producing actionable plans with: phase positioning → real-world survey → primary contradiction identification → minimum viable practice → success criteria → re-cognition loop design.
+description: "目标是正向建设（技术方案/产品路径/团队实践）时用；基于调查先于方案和三阶段论生成实践规划。"
 ---
 
 # 正向实践规划器
@@ -22,7 +20,7 @@ description: |
 2. 方案不考虑当前阶段，把扩张期战术用在探索期——用三阶段论校准
 3. 方案太宏大，无法落地——强制输出"最小有效实践"和"第一步具体动作"
 
-**前置条件：** 建议先运行 `aolun-ground` 完成感性认识建立和阶段判断。如果没有 ground 报告，本 skill 的第一层强制内嵌一个简化版调查。
+**前置条件：** 建议先运行 `aolun-ground` 完成感性认识建立和阶段判断。**`aolun-ground` 是阶段判断的权威**——阶段定义、主要矛盾方向、战略重心、诊断问题都以 ground 为准，本 skill 不重复定义整张阶段表，只消费其阶段判断结果。如果没有 ground 报告，本 skill 的第一层强制内嵌一个简化版调查。
 
 ---
 
@@ -82,15 +80,13 @@ description: |
 
 ### 2.2 阶段匹配验证
 
-从 ground 报告读取当前阶段，验证识别的矛盾是否与阶段匹配：
+从 ground 报告读取当前阶段（**`aolun-ground` 是阶段判断的权威**，其阶段定义、主要矛盾方向、战略重心以 ground 为准，本 skill 不重复定义），验证识别的矛盾是否与阶段匹配：
 
-| 阶段 | 矛盾是否匹配的检验问题 |
-|------|---------------------|
-| 探索期 | 矛盾是否聚焦于"获取有效信息"？ |
-| 扩张期 | 矛盾是否聚焦于"建立可复制的优势"？ |
-| 存量期 | 矛盾是否聚焦于"控制复杂度和维护质量"？ |
+- 探索期：矛盾应聚焦于"获取有效信息"
+- 扩张期：矛盾应聚焦于"建立可复制的优势"
+- 存量期：矛盾应聚焦于"控制复杂度和维护质量"
 
-如果矛盾与阶段不匹配，说明阶段判断可能有误，或者矛盾识别不够准确，需要重新分析。
+如果矛盾与阶段不匹配，说明阶段判断可能有误，或者矛盾识别不够准确，需要重新分析（必要时回到 `aolun-ground` 复核阶段判断）。
 
 ---
 
@@ -124,6 +120,8 @@ description: |
 
 ### 3.2 阶段匹配的实践形态
 
+阶段名与判定以 `aolun-ground` 为准；下表只给出本 skill 在**对应阶段下 MEP 的实践形态**（build 特有，不在 ground 中重复）：
+
 | 阶段 | 对应战术 | 实践形态 |
 |------|---------|---------|
 | 探索期 | 运动战：快速移动，不死守 | 快速实验：A/B测试、用户访谈、原型验证；每次实践1-2周，产出具体数据 |
@@ -156,15 +154,15 @@ description: |
 
 ### 4.2 阶段转换检验
 
-论持久战的三阶段不是固定的，阶段会随着条件变化而转换。
+阶段会随着条件变化而转换；**阶段判定与何时进入新一轮由 `aolun-ground` 负责复核**，本 skill 只在实践反馈中发现下列 build 特有信号时，触发回到 ground 复核阶段：
 
-**阶段转换信号：**
-
-| 从 | 转换信号 | 到 |
+| 从 | 转换信号（build 特有） | 到 |
 |----|---------|-----|
 | 探索期 | 已有1-2个实践被重复验证有效；团队有了方向共识 | 扩张期 |
 | 扩张期 | 规模扩大后出现系统性质量下滑；新加入的人难以快速有效 | 存量期 |
 | 存量期 | 核心矛盾发生根本性变化（技术代际更换、市场格局重构） | 探索期（新一轮） |
+
+出现上述信号时，**回到 `aolun-ground` 复核阶段判断**，而不是在本 skill 内自行改判阶段。
 
 ---
 

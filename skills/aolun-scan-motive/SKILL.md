@@ -1,8 +1,6 @@
 ---
 name: aolun-scan-motive
-description: |
-  ⚡入口 skill。利益层解剖完成后，扫描信息背后的深层动机——不只是"谁得到什么好处"，而是动机如何系统性地扭曲了技术判断，制造了哪些认知陷阱。
-  English: Entry skill. Trigger after interest dissection to scan for deep motivational distortions—not just "who benefits" but how motives systematically warp technical judgment and manufacture cognitive traps for the audience.
+description: "利益层解剖后扫描深层动机：动机如何扭曲技术判断、制造认知陷阱。"
 ---
 
 # 动机弱点扫描器

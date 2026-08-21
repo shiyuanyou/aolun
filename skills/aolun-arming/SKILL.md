@@ -1,8 +1,6 @@
 ---
 name: aolun-arming
-description: |
-  ⚡入口 skill。每次新的顶层对话开始时自动调用，建立"拆底朝天、立而破之"的总原则，并为后续任务路由下游 skill。如果你是被派遣执行单一具体任务的子 agent，则跳过此 skill。
-  English: Entry skill. Trigger at the start of each new top-level conversation to establish the core posture of "tear it apart, then build something better." Skip this skill when you are a delegated sub-agent handling a narrow, concrete task.
+description: "每次新的顶层对话开始时进入，建立\"拆底朝天、立而破之\"的总原则并路由下游 skill。被派遣做单一具体任务的子 agent 跳过。"
 ---
 
 > **子 agent：直接跳过此 skill。** 你已有明确任务指令，无需此路由层。
@@ -148,7 +146,7 @@ description: |
 
 ## 调度规则
 
-拿到一篇需要拆解攻击的帖子，标准路径：
+拿到一篇需要拆解攻击的帖子，**完整拆底朝天**的标准参考路径：
 
 ```
 aolun-arming（路由）
@@ -161,7 +159,7 @@ aolun-arming（路由）
     → aolun-attack           攻击文生成器  ⚡入口
 ```
 
-**不需要每次全走。** 判断规则：
+**这是参考路径，不是每次都必须全走**（按需原则，见下方判断规则；长文本/路径输入先走 fileflow）。具体步骤、数据交接参考见 `aolun-workflows`。判断规则：
 
 | 你的目标 | 最少需要的路径 |
 |---------|------------|
@@ -173,6 +171,27 @@ aolun-arming（路由）
 | 完整拆底朝天 | 全路径 |
 
 具体步骤、数据传递格式和各工作流的终止条件见 `aolun-workflows`。
+
+---
+
+## 路由边界（arming / fileflow / workflows 分工，避免重复）
+
+三个 skill 各管一段，本 skill 是**路由入口**，不做文件落盘、也不重述工作流：
+
+| Skill | 职责 | 在本 skill 中的角色 |
+|-------|------|-------------------|
+| `aolun-arming` | **入口路由 + 意图判断**：长度/类型判断、短文本意图问询、按需决定走哪个 skill 组合 | 本文件。只负责「把任务路由到正确的下一个 skill」 |
+| `aolun-fileflow` | **长文本 / 路径输入的持久化编排**：建任务目录、落盘、批次/关键节点暂停、债区 | 长度 ≥1500 字符或路径/目录输入时**强制移交**给它，arm 不重复做落盘/暂停 |
+| `aolun-workflows` | **预设菜单 + 数据交接参考**：给「选哪些步骤、按什么顺序、传什么数据」作参考，不强制流水线 | 需要决定步骤组合时**参考**它，arm 不重述各工作流的步骤/数据交接 |
+
+**明确分工，避免重复：**
+- **路由**（判断走哪）→ 本 skill。
+- **长文本落盘与编排**（怎么落盘、何时暂停）→ `aolun-fileflow`。
+- **步骤组合与数据交接参考**（走哪些层、传什么字段）→ `aolun-workflows`。
+- 本 skill 不内联 fileflow 的目录/债区规则，也不重述 workflows 的各步骤数据格式；需要时直接指向它们。
+
+**路径/长文本路由到 fileflow 的规则不变：** 输入是文件路径、目录路径，或文本 ≥1500 字符时，一律先移交给 `aolun-fileflow`（见「前置：输入类型与长度判断」），本 skill 不做任何分析。
+
 
 ---
 
@@ -211,17 +230,17 @@ aolun-arming（路由）
 
 | 入口 Skill | 用途 |
 |-----------|------|
-| `aolun-arming` | 路由器，会话启动，长度判断 |
-| `aolun-fileflow` | 文件持久化分析路由器（长文本 ≥1500字符） |
+| `aolun-arming` | 入口路由器，会话启动，长度/类型判断，按需路由（本文件） |
+| `aolun-fileflow` | 文件持久化分析路由器（长文本 ≥1500字符 / 路径输入 → 落盘编排、暂停、债区） |
 | `aolun-dissect-concept` | 概念层解剖 |
-| `aolun-scan-orchestrator` | 并行扫描编排器 |
+| `aolun-scan-orchestrator` | 全维扫描编排器（按需；单维扫描直接调对应 scan-*） |
 | `aolun-scan-logic` | 逻辑弱点扫描 |
 | `aolun-scan-engineering` | 工程弱点扫描 |
 | `aolun-scan-history` | 历史弱点扫描 |
 | `aolun-scan-motive` | 动机弱点扫描 |
 | `aolun-other-mountains` | 跨领域解法引擎 |
 | `aolun-attack` | 攻击文生成器 |
-| `aolun-workflows` | 工作流编排 |
+| `aolun-workflows` | 工作流编排（预设菜单 + 数据交接参考，不是强制流水线） |
 | `aolun-ground` | 前置调研 |
 | `aolun-build` | 正向实践规划器 |
 

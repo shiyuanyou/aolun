@@ -1,8 +1,6 @@
 ---
 name: aolun-inter-dissect-interest
-description: |
-  ⚡内部 skill（由约束层解剖回调）。解剖利益层——谁在推这个技术，他们从中得到什么，信息的选择性背后隐藏着什么议程。
-  English: Internal skill (called back by constraint dissection). Dissects the interest layer: who is pushing this technology, what they gain from it, and what agenda hides behind the selective presentation of information.
+description: "解剖利益层：谁在推动、他们得到什么、选择性信息背后藏着什么议程。"
 ---
 
 # 利益层解剖器
@@ -116,22 +114,7 @@ description: |
 
 ## fileflow 模式说明
 
-当由 aolun-fileflow 编排执行时，本 skill 的输出和引用遵循以下规则：
-
-1. **输出格式**：文件顶部必须包含【摘要】块（3-5行，给出本步骤核心判断），然后是 --- 分隔线，然后是完整分析内容。
-
-2. **引用硬约束**：每个弱点的证据必须附原文定位和直接引用。
-   - 粘贴/单文件模式：引用格式为 `第<N>行："直接引用原句"`
-   - 目录模式：引用格式为 `<文件名>:<N>："直接引用原句"`
-   - 连续引用超过 3 行时，用行号范围标注：`第<N>-<M>行` 或 `<文件名>:<N>-<M>："..."`
-   - 禁止转述代替引用——转述必然失真，引用才是弹药
-
-3. **证据搜索**：使用 Read 和 Grep 工具主动搜索原文，不得等待主 agent 传递文本。
-   - 粘贴/单文件模式：搜索 `00-original.md` 或源文件路径
-   - 目录模式：搜索 `00-sources/` 下的 .md 文件（从 `00-index.md` 获取文件清单，或搜索源目录下 .md 文件）
-   - 搜索策略优先使用 `00-todolist.md` 中"语义线索"部分的精确行号
-
-4. **向下游传递**：在 fileflow 模式下，本 skill 的输出自动写入编号文件，下游 skill 通过文件路径读取。本 skill 无需关心下游传递机制。
+当由 `aolun-fileflow` 编排执行时，输出格式、引用硬约束、证据搜索与向下游传递均以 `aolun-fileflow` SKILL.md 的 Part 2 / Part 4 为准，本 skill 不再重复。本 skill 只需保持自己的分析清单和输出主体。
 
 ---
 
