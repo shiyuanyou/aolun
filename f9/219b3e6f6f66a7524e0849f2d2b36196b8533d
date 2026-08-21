@@ -1,0 +1,49 @@
+tests/validate.ps1
+  h_21e7cd51f487a9 40-48
+skills/aolun-scan/SKILL.md
+  h_21e7cd51f487a9 2-3,6,8,10,12-14,16,18,20,22,24,26,28,30,32,34,36-40,42,44,46-50,52,54,56-59,61,63,65-69,71,73,75-78,80,82-84,86,88-92,94,96
+AGENTS.md
+  h_21e7cd51f487a9 3,12,14,17-19,21,24,27,45
+  h_21e7cd51f487a9 20
+skills/aolun-ground/SKILL.md
+  h_21e7cd51f487a9 159,168
+.claude-plugin/plugin.json
+  h_21e7cd51f487a9 3
+commands/aolun-quick-shot.md
+  h_21e7cd51f487a9 7,12-16
+README.md
+  h_21e7cd51f487a9 6,10,12,15-19,22-26,28,30-35,39,41-43,50-52,56,58-60
+.codex/INSTALL.md
+  h_21e7cd51f487a9 8-15
+tests/validate.sh
+  h_21e7cd51f487a9 34-36,39-40
+package.json
+  h_21e7cd51f487a9 4
+docs/plans/2026-08-21-aolun-v2-simplification.md
+  h_21e7cd51f487a9 1,3-6,10-185
+commands/aolun-full-teardown.md
+  h_21e7cd51f487a9 7,12-13,15-20
+skills/aolun-arming/SKILL.md
+  h_21e7cd51f487a9 10,14,16,18-20,26-28,35,37,39-41,43-44,48,50,52-59,61,63-65,67,71,73-79,81,85,89-96,98,104,110
+hooks/session-start.ps1
+  h_21e7cd51f487a9 37,45-46,50
+.cursor-plugin/plugin.json
+  h_21e7cd51f487a9 3
+skills/aolun-fileflow/SKILL.md
+  h_21e7cd51f487a9 3,6,8,11-12,14,18,20-25,29,31,34-35,38,40,42,45,47-48,50-51,53-58,60-61,63-64,66,68,71,73,75,77,79,81,84,87,89,91-95,97,99,101-107,109,111,113,115-119,121,123,125-132,136,138,140-145,147,149-151,153-154,156-157,159-160,162-163,165-167,169,173,190-193,201,205,207-209,214-217,222,225,227-229,233,235,237-239,241,245,247-251
+  h_21e7cd51f487a9 27,170
+skills/aolun-dissect/SKILL.md
+  h_21e7cd51f487a9 2-3,6,8,10,12-14,16,18,20,22,24,26,28,30-34,36,38,40-44,46,48,50-53,55,57,59-62,64,66-68,70,72-75,77,79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "f9219b3e6f6f66a7524e0849f2d2b36196b8533d",
+  "prompts": {},
+  "logical_commit_id": "6ec98edc22e3b1571a1f608775114275b55c2d0a",
+  "humans": {
+    "h_21e7cd51f487a9": {
+      "author": "shiyuanyou <shiyuanyou@bigo.sg>"
+    }
+  }
+}
